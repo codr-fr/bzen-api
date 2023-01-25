@@ -1,0 +1,7 @@
+{
+    "extends": "./tsconfig.base.json",
+    "compilerOptions": {
+        "preserveConstEnums": true,
+        "sourceMap": true
+    }
+}
