@@ -2,6 +2,7 @@ import { model, Schema } from "mongoose";
 import { IEvent } from "../interface/event";
 
 const eventSchema = new Schema<IEvent>({
+    uuid: { type: String, required: true },
     name: { type: String, required: true },
     command: { type: Object, required: true }
 });

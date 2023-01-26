@@ -23,12 +23,12 @@ services:
       - ME_CONFIG_MONGODB_ADMINPASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
       - ME_CONFIG_MONGODB_URL=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongo:27017/
   
-  rabbitmq:
-    image: rabbitmq:3-management-alpine
-    restart: always
-    ports:
-      - ${RABBITMQ_MANAGEMENT_PORT}:15672
-      - ${RABBITMQ_PORT}:5672
+  # rabbitmq:
+  #   image: rabbitmq:3-management-alpine
+  #   restart: always
+  #   ports:
+  #     - ${RABBITMQ_MANAGEMENT_PORT}:15672
+  #     - ${RABBITMQ_PORT}:5672
 
 
 volumes:

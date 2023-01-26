@@ -2,12 +2,12 @@ import Joi from "joi";
 import { ICommand } from "../../../interface/command";
 
 export interface ICreateAccountCommand extends ICommand {
-    id: string;
+    uuid: string;
     balance: number;
 }
 
 export const createAccountCommandSchema = Joi.object({
-    id: Joi.string().uuid(),
+    uuid: Joi.string().uuid(),
     balance: Joi.number()
 })
 

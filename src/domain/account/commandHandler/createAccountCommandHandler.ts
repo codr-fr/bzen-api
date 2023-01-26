@@ -7,10 +7,13 @@ import { IAccountCreatedEvent } from "../event/accountCreatedEvent";
 export const createAccountCommandHandler = async (command: ICreateAccountCommand) => {
     await db();
 
-    const event = new Event(<IAccountCreatedEvent>{
+    const eventData: IAccountCreatedEvent = {
+        uuid: command.uuid,
         name: ACCOUNT_OPEN_EVENT,
         command
-    });
+    }
+
+    const event = new Event(eventData);
 
     await event.save().catch(err => {
         console.error({ err })

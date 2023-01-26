@@ -5,20 +5,27 @@ import {v4} from "uuid";
 import { createAccountCommandValidate, ICreateAccountCommand } from "../command/createAccountCommand";
 import { createAccountCommandHandler } from "../commandHandler/createAccountCommandHandler"
 
-/*
-export const events = async (_: Request, res: Response) => {
-    await db();
+export const getAccount = async (req: Request, res: Response) => {
+    
+    interface AccountAggregator {
+        id: string;
+        currentBalance: number;
+    }
 
-    const events = await Event.find().exec();
 
-    res.status(200).json(events)
+
+
+    console.log(req.params)
+
+    res.status(200).json({
+        message: "Great success!"
+    })
 }
-*/
 
 export const createAccount = async (req: Request, res: Response) => {
 
     const command: ICreateAccountCommand = {...req.body}
-    command.id = v4()
+    command.uuid = v4()
 
     try {
         createAccountCommandValidate(command)
