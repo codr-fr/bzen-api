@@ -6,11 +6,17 @@ dotenvExpand.expand(env)
 
 import http from 'http'
 import app from './app'
-import { events, createAccount } from './controllers/events'
+import { createAccount } from './domain/account/controller'
 
+
+app.post('/api/account', createAccount)
+
+// Server port
 const port = process.env.API_PORT || '3000'
-
 app.set('port', port)
+
+// Create and configure server
+
 const server = http.createServer(app)
 
 server.on('listening', () => {
@@ -21,5 +27,13 @@ server.on('listening', () => {
 
 server.listen(port)
 
-app.get('/api/events', events)
-app.post('/api/account', createAccount)
+// Handle unhandled promise rejections and exceptions
+process.on("unhandledRejection", (err: any) => {
+    console.log(err);
+});
+
+process.on("uncaughtException", (err: any) => {
+    console.log(err.message);
+});
+
+

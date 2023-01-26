@@ -27,7 +27,8 @@ services:
     image: rabbitmq:3-management-alpine
     restart: always
     ports:
-      - ${RABBITMQ_PORT}:15672
+      - ${RABBITMQ_MANAGEMENT_PORT}:15672
+      - ${RABBITMQ_PORT}:5672
 
 
 volumes:
