@@ -6,9 +6,9 @@ export interface IDebitAccountCommand extends ICommand {
     amount: number;
 }
 
-export const debitAccountCommandSchema = Joi.object({
+const debitAccountCommandSchema = Joi.object({
     uuid: Joi.string().uuid(),
-    amount: Joi.number()
+    amount: Joi.number().positive()
 })
 
 export const creditAccountCommandValidate = (command: IDebitAccountCommand) => {

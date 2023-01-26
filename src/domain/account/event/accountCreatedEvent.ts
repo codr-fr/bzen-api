@@ -1,6 +1,9 @@
-import { IEvent } from "../../../interface/event";
-import { ICreateAccountCommand } from "../command/createAccountCommand";
+import { IEvent } from "../../../interface/event"
+
+export const ACCOUNT_CREATED_EVENT = "ACCOUNT_CREATED_EVENT"
 
 export interface IAccountCreatedEvent extends IEvent {
-    command: ICreateAccountCommand;
+    payload: {
+        initialBalance: number
+    }
 }

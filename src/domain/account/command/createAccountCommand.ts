@@ -2,13 +2,11 @@ import Joi from "joi";
 import { ICommand } from "../../../interface/command";
 
 export interface ICreateAccountCommand extends ICommand {
-    uuid: string;
-    balance: number;
+    initialBalance: number;
 }
 
-export const createAccountCommandSchema = Joi.object({
-    uuid: Joi.string().uuid(),
-    balance: Joi.number()
+const createAccountCommandSchema = Joi.object({
+    initialBalance: Joi.number().required()
 })
 
 export const createAccountCommandValidate = (command: ICreateAccountCommand) => {

@@ -1,8 +1,7 @@
 import db from "../../../database/mongoose";
 import { Event } from "../../../models/event";
 import { IDebitAccountCommand } from "../command/debitAccountCommand";
-import { ACCOUNT_DEBITED_EVENT } from "../event";
-import { IAccountDebitedEvent } from "../event/accountDebitedEvent";
+import { ACCOUNT_DEBITED_EVENT, IAccountDebitedEvent } from "../event/accountDebitedEvent";
 
 export const debitAccountCommandHandler = async (command: IDebitAccountCommand) => {
     await db();
@@ -10,7 +9,9 @@ export const debitAccountCommandHandler = async (command: IDebitAccountCommand) 
     const eventData: IAccountDebitedEvent = {
         uuid: command.uuid,
         name: ACCOUNT_DEBITED_EVENT,
-        command
+        payload: {
+            amount: command.amount
+        }
     }
 
     const event = new Event(eventData);

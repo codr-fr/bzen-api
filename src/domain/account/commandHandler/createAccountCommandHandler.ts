@@ -1,16 +1,18 @@
 import db from "../../../database/mongoose";
 import { Event } from "../../../models/event";
 import { ICreateAccountCommand } from "../command/createAccountCommand";
-import { ACCOUNT_CREATED_EVENT } from "../event";
-import { IAccountCreatedEvent } from "../event/accountCreatedEvent";
+import { ACCOUNT_CREATED_EVENT, IAccountCreatedEvent } from "../event/accountCreatedEvent";
+import {v4} from "uuid";
 
 export const createAccountCommandHandler = async (command: ICreateAccountCommand) => {
     await db();
 
     const eventData: IAccountCreatedEvent = {
-        uuid: command.uuid,
+        uuid: v4(),
         name: ACCOUNT_CREATED_EVENT,
-        command
+        payload: {
+            initialBalance: command.initialBalance
+        }
     }
 
     const event = new Event(eventData);

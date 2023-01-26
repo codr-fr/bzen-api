@@ -1,8 +1,7 @@
 import { IEvent } from "../../../interface/event";
-import { ICreateAccountCommand } from "../command/createAccountCommand";
-import { ICreditAccountCommand } from "../command/creditAccountCommand";
-import { IDebitAccountCommand } from "../command/debitAccountCommand";
-import { ACCOUNT_CREDITED_EVENT, ACCOUNT_CREATED_EVENT, ACCOUNT_DEBITED_EVENT } from "../event";
+import { ACCOUNT_CREATED_EVENT, IAccountCreatedEvent } from "../event/accountCreatedEvent";
+import { ACCOUNT_CREDITED_EVENT, IAccountCreditedEvent } from "../event/accountCreditedEvent";
+import { ACCOUNT_DEBITED_EVENT, IAccountDebitedEvent } from "../event/accountDebitedEvent";
 
 export interface AccountAggregator {
     id: string;
@@ -18,16 +17,16 @@ export function create(uuid: string):AccountAggregator {
     return account
 }
 
-function applyCreateAccountCommand(account:AccountAggregator, command: ICreateAccountCommand) {
-    account.currentBalance = command.balance
+function applyCreateAccountEvent(account:AccountAggregator, event: IAccountCreatedEvent) {
+    account.currentBalance = event.payload.initialBalance
 }
 
-function applyCreditAccountCommand(account:AccountAggregator, command: ICreditAccountCommand) {
-    account.currentBalance += command.amount
+function applyCreditAccountEvent(account:AccountAggregator, event: IAccountCreditedEvent) {
+    account.currentBalance += event.payload.amount
 }
 
-function applyDebitAccountCommand(account:AccountAggregator, command: IDebitAccountCommand) {
-    account.currentBalance -= command.amount
+function applyDebitAccountEvent(account:AccountAggregator, event: IAccountDebitedEvent) {
+    account.currentBalance -= event.payload.amount
 }
 
 export function handleEvents(account:AccountAggregator, events:IEvent[]):AccountAggregator {
@@ -37,15 +36,15 @@ export function handleEvents(account:AccountAggregator, events:IEvent[]):Account
 
         switch(event.name) {
             case ACCOUNT_CREATED_EVENT:
-                applyCreateAccountCommand(account, <ICreateAccountCommand> event.command)
+                applyCreateAccountEvent(account, <IAccountCreatedEvent> event)
                 break;
 
             case ACCOUNT_CREDITED_EVENT:
-                applyCreditAccountCommand(account, <ICreditAccountCommand> event.command)
+                applyCreditAccountEvent(account, <IAccountCreditedEvent> event)
                 break;
 
             case ACCOUNT_DEBITED_EVENT:
-                applyDebitAccountCommand(account, <IDebitAccountCommand> event.command)
+                applyDebitAccountEvent(account, <IAccountDebitedEvent> event)
                 break;                           
         }
     

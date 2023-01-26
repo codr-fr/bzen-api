@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import {v4} from "uuid";
 import db from "../../../database/mongoose";
 import { Event } from "../../../models/event";
 import { AccountAggregator, create, handleEvents } from "../aggregator/accountAggregator";
@@ -8,9 +7,11 @@ import { AccountAggregator, create, handleEvents } from "../aggregator/accountAg
 import { createAccountCommandValidate, ICreateAccountCommand } from "../command/createAccountCommand";
 import { creditAccountCommandValidate, ICreditAccountCommand } from "../command/creditAccountCommand";
 import { IDebitAccountCommand } from "../command/debitAccountCommand";
+import { ITransferCommand, transferCommandValidate } from "../command/transferCommand";
 import { createAccountCommandHandler } from "../commandHandler/createAccountCommandHandler"
 import { creditAccountCommandHandler } from "../commandHandler/creditAccountCommandHandler";
 import { debitAccountCommandHandler } from "../commandHandler/debitAccountCommandHandler";
+import { transferCommandHandler } from "../commandHandler/transferCommandHandler";
 
 export const getAccount = async (req: Request, res: Response) => {
     await db()
@@ -25,7 +26,6 @@ export const getAccount = async (req: Request, res: Response) => {
 export const createAccount = async (req: Request, res: Response) => {
 
     const command: ICreateAccountCommand = {...req.body}
-    command.uuid = v4()
 
     try {
         createAccountCommandValidate(command)
@@ -72,6 +72,28 @@ export const debitAccount = async (req: Request, res: Response) => {
     try {
         creditAccountCommandValidate(command)
         await debitAccountCommandHandler(command);
+
+        res.status(200).json({
+            message: "Great success!"
+        })
+
+    } catch (error: any) {
+        console.error(error);
+
+        res.status(500).json({
+          error: error?.message,
+        });
+    }
+}
+
+
+export const transferBetweenAccounts = async (req: Request, res: Response) => {
+
+    const command: ITransferCommand = {...req.body}
+
+    try {
+        transferCommandValidate(command)
+        await transferCommandHandler(command);
 
         res.status(200).json({
             message: "Great success!"
