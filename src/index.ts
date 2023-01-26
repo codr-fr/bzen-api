@@ -6,10 +6,11 @@ dotenvExpand.expand(env)
 
 import http from 'http'
 import app from './app'
-import { createAccount, getAccount } from './domain/account/controller'
+import { createAccount, creditAccount, getAccount } from './domain/account/controller'
 
 app.get('/api/account/:uuid', getAccount)
 app.post('/api/account', createAccount)
+app.post('/api/account/credit', creditAccount)
 
 // Server port
 const port = process.env.API_PORT || '3000'

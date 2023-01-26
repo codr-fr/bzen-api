@@ -6,7 +6,9 @@ import { AccountAggregator, create, handleEvents } from "../aggregator/accountAg
 
 // import amqplib from 'amqplib';
 import { createAccountCommandValidate, ICreateAccountCommand } from "../command/createAccountCommand";
+import { creditAccountCommandValidate, ICreditAccountCommand } from "../command/creditAccountCommand";
 import { createAccountCommandHandler } from "../commandHandler/createAccountCommandHandler"
+import { creditAccountCommandHandler } from "../commandHandler/creditAccountCommandHandler";
 
 export const getAccount = async (req: Request, res: Response) => {
     await db()
@@ -26,6 +28,27 @@ export const createAccount = async (req: Request, res: Response) => {
     try {
         createAccountCommandValidate(command)
         await createAccountCommandHandler(command);
+
+        res.status(200).json({
+            message: "Great success!"
+        })
+
+    } catch (error: any) {
+        console.error(error);
+
+        res.status(500).json({
+          error: error?.message,
+        });
+    }
+}
+
+export const creditAccount = async (req: Request, res: Response) => {
+
+    const command: ICreditAccountCommand = {...req.body}
+
+    try {
+        creditAccountCommandValidate(command)
+        await creditAccountCommandHandler(command);
 
         res.status(200).json({
             message: "Great success!"

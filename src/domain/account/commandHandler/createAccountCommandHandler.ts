@@ -1,7 +1,7 @@
 import db from "../../../database/mongoose";
 import { Event } from "../../../models/event";
 import { ICreateAccountCommand } from "../command/createAccountCommand";
-import { ACCOUNT_OPEN_EVENT } from "../event";
+import { ACCOUNT_CREATED_EVENT } from "../event";
 import { IAccountCreatedEvent } from "../event/accountCreatedEvent";
 
 export const createAccountCommandHandler = async (command: ICreateAccountCommand) => {
@@ -9,7 +9,7 @@ export const createAccountCommandHandler = async (command: ICreateAccountCommand
 
     const eventData: IAccountCreatedEvent = {
         uuid: command.uuid,
-        name: ACCOUNT_OPEN_EVENT,
+        name: ACCOUNT_CREATED_EVENT,
         command
     }
 
