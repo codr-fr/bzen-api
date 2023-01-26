@@ -1,7 +1,8 @@
 import { IEvent } from "../../../interface/event";
 import { ICreateAccountCommand } from "../command/createAccountCommand";
 import { ICreditAccountCommand } from "../command/creditAccountCommand";
-import { ACCOUNT_CREDITED_EVENT, ACCOUNT_CREATED_EVENT } from "../event";
+import { IDebitAccountCommand } from "../command/debitAccountCommand";
+import { ACCOUNT_CREDITED_EVENT, ACCOUNT_CREATED_EVENT, ACCOUNT_DEBITED_EVENT } from "../event";
 
 export interface AccountAggregator {
     id: string;
@@ -25,6 +26,10 @@ function applyCreditAccountCommand(account:AccountAggregator, command: ICreditAc
     account.currentBalance += command.amount
 }
 
+function applyDebitAccountCommand(account:AccountAggregator, command: IDebitAccountCommand) {
+    account.currentBalance -= command.amount
+}
+
 export function handleEvents(account:AccountAggregator, events:IEvent[]):AccountAggregator {
     
     const aggregator: AccountAggregator = events.reduce((account: AccountAggregator, event: IEvent) => {
@@ -38,9 +43,10 @@ export function handleEvents(account:AccountAggregator, events:IEvent[]):Account
             case ACCOUNT_CREDITED_EVENT:
                 applyCreditAccountCommand(account, <ICreditAccountCommand> event.command)
                 break;
-            // case ACCOUNT_TRANSFERT_EVENT:
-            //     handleTransfertEvent(account, <AccountTransfertEvent> event)
-            //     break;            
+
+            case ACCOUNT_DEBITED_EVENT:
+                applyDebitAccountCommand(account, <IDebitAccountCommand> event.command)
+                break;                           
         }
     
         console.log({account});
