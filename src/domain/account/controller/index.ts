@@ -1,25 +1,21 @@
 import { Request, Response } from "express";
 import {v4} from "uuid";
+import db from "../../../database/mongoose";
+import { Event } from "../../../models/event";
+import { AccountAggregator, create, handleEvents } from "../aggregator/accountAggregator";
 
 // import amqplib from 'amqplib';
 import { createAccountCommandValidate, ICreateAccountCommand } from "../command/createAccountCommand";
 import { createAccountCommandHandler } from "../commandHandler/createAccountCommandHandler"
 
 export const getAccount = async (req: Request, res: Response) => {
-    
-    interface AccountAggregator {
-        id: string;
-        currentBalance: number;
-    }
+    await db()
 
+    const uuid: string = req.params.uuid
+    const events = await Event.find({uuid}).exec()
+    const account: AccountAggregator = handleEvents(create(uuid), events)
 
-
-
-    console.log(req.params)
-
-    res.status(200).json({
-        message: "Great success!"
-    })
+    res.status(200).json({account})
 }
 
 export const createAccount = async (req: Request, res: Response) => {

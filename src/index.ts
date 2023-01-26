@@ -8,7 +8,7 @@ import http from 'http'
 import app from './app'
 import { createAccount, getAccount } from './domain/account/controller'
 
-app.get('/api/account/:id', getAccount)
+app.get('/api/account/:uuid', getAccount)
 app.post('/api/account', createAccount)
 
 // Server port
