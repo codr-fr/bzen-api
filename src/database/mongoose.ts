@@ -1,8 +1,4 @@
-import mongoose, { connect } from 'mongoose'
-/**
- Source :
- https://github.com/vercel/next.js/blob/canary/examples/with-mongodb-mongoose/utils/dbConnect.js
- **/
+import mongoose, { connect, Connection } from 'mongoose'
 
 mongoose.set('strictQuery', false);
 
@@ -14,18 +10,17 @@ if (!MONGO_URI) {
     )
 }
 
-/**
- * Global is used here to maintain a cached connection across hot reloads
- * in development. This prevents connections growing exponentially
- * during API Route usage.
- */
+declare global {
+    var mongoose: any;
+}
+
 let cached = global.mongoose
 
 if (!cached) {
     cached = global.mongoose = { conn: null, promise: null }
 }
 
-async function db () {
+async function db (): Promise<Connection> {
     if (cached.conn) {
         return cached.conn
     }
