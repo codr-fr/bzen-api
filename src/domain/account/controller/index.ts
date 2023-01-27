@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import db from "../../../database/mongoose";
 import { Event } from "../../../models/event";
 import { AccountAggregator, create, handleEvents } from "../aggregator/accountAggregator";
@@ -23,87 +23,55 @@ export const getAccount = async (req: Request, res: Response) => {
     res.status(200).json({account})
 }
 
-export const createAccount = async (req: Request, res: Response) => {
+export const createAccount = async (req: Request, res: Response, next: NextFunction) => {
 
     const command: ICreateAccountCommand = {...req.body}
 
     try {
         createAccountCommandValidate(command)
         await createAccountCommandHandler(command);
-
-        res.status(200).json({
-            message: "Great success!"
-        })
-
+        next()
     } catch (error: any) {
-        console.error(error);
-
-        res.status(500).json({
-          error: error?.message,
-        });
+        next(error)
     }
 }
 
-export const creditAccount = async (req: Request, res: Response) => {
+export const creditAccount = async (req: Request, res: Response, next: NextFunction) => {
 
     const command: ICreditAccountCommand = {...req.body}
 
     try {
         creditAccountCommandValidate(command)
         await creditAccountCommandHandler(command);
-
-        res.status(200).json({
-            message: "Great success!"
-        })
-
+        next()
     } catch (error: any) {
-        console.error(error);
-
-        res.status(500).json({
-          error: error?.message,
-        });
+        next(error)
     }
 }
 
-export const debitAccount = async (req: Request, res: Response) => {
+export const debitAccount = async (req: Request, res: Response, next: NextFunction) => {
 
     const command: IDebitAccountCommand = {...req.body}
 
     try {
         creditAccountCommandValidate(command)
         await debitAccountCommandHandler(command);
-
-        res.status(200).json({
-            message: "Great success!"
-        })
-
+        next()
     } catch (error: any) {
-        console.error(error);
-
-        res.status(500).json({
-          error: error?.message,
-        });
+        next(error)
     }
 }
 
 
-export const transferBetweenAccounts = async (req: Request, res: Response) => {
+export const transferBetweenAccounts = async (req: Request, res: Response, next: NextFunction) => {
 
     const command: ITransferCommand = {...req.body}
 
     try {
         transferCommandValidate(command)
         await transferCommandHandler(command);
-
-        res.status(200).json({
-            message: "Great success!"
-        })
-
+        next()
     } catch (error: any) {
-        console.error(error);
-
-        res.status(500).json({
-          error: error?.message,
-        });
+        next(error)
     }
 }

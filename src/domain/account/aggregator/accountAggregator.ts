@@ -6,12 +6,14 @@ import { ACCOUNT_DEBITED_EVENT, IAccountDebitedEvent } from "../event/accountDeb
 export interface AccountAggregator {
     id: string;
     currentBalance: number;
+    estimatedBalance: number;
 }
 
 export function create(uuid: string):AccountAggregator {
     const account:AccountAggregator = {
         id: uuid,
-        currentBalance: 0
+        currentBalance: 0,
+        estimatedBalance: 0,
     }
 
     return account
