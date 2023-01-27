@@ -2,8 +2,20 @@ import { IEvent } from "../../../interface/event"
 
 export const ACCOUNT_CREDITED_EVENT = "ACCOUNT_CREDITED_EVENT"
 
-export interface IAccountCreditedEvent extends IEvent {
-    payload: {
-        amount: number
+interface Payload {
+    amount: number
+}
+
+export class AccountCreditedEvent implements IEvent {
+    date?: Date | undefined
+    uuid: string
+    name: string = ACCOUNT_CREDITED_EVENT
+    payload: Payload
+
+    constructor(uuid: string, amount: number) {
+        this.uuid = uuid
+        this.payload = {
+            amount
+        }
     }
 }

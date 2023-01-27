@@ -1,8 +1,8 @@
 import { IAggregator } from "../../../interface/aggregator";
 import { IEvent } from "../../../interface/event";
-import { ACCOUNT_CREATED_EVENT, IAccountCreatedEvent } from "../event/accountCreatedEvent";
-import { ACCOUNT_CREDITED_EVENT, IAccountCreditedEvent } from "../event/accountCreditedEvent";
-import { ACCOUNT_DEBITED_EVENT, IAccountDebitedEvent } from "../event/accountDebitedEvent";
+import { ACCOUNT_CREATED_EVENT, AccountCreatedEvent } from "../event/accountCreatedEvent";
+import { ACCOUNT_CREDITED_EVENT, AccountCreditedEvent } from "../event/accountCreditedEvent";
+import { ACCOUNT_DEBITED_EVENT, AccountDebitedEvent } from "../event/accountDebitedEvent";
 
 export class AccountAggregator implements IAggregator {
     readonly id: string;
@@ -23,29 +23,29 @@ export class AccountAggregator implements IAggregator {
     applyEvent(event: IEvent): AccountAggregator {
         switch (event.name) {
             case ACCOUNT_CREATED_EVENT:
-                this.applyCreateAccountEvent(<IAccountCreatedEvent>event)
+                this.applyCreateAccountEvent(<AccountCreatedEvent>event)
                 break;
 
             case ACCOUNT_CREDITED_EVENT:
-                this.applyCreditAccountEvent(<IAccountCreditedEvent>event)
+                this.applyCreditAccountEvent(<AccountCreditedEvent>event)
                 break;
 
             case ACCOUNT_DEBITED_EVENT:
-                this.applyDebitAccountEvent(<IAccountDebitedEvent>event)
+                this.applyDebitAccountEvent(<AccountDebitedEvent>event)
                 break;
         }
         return this
     }
 
-    private applyCreateAccountEvent(event: IAccountCreatedEvent) {
+    private applyCreateAccountEvent(event: AccountCreatedEvent) {
         this.currentBalance = event.payload.initialBalance
     }
 
-    private applyCreditAccountEvent(event: IAccountCreditedEvent) {
+    private applyCreditAccountEvent(event: AccountCreditedEvent) {
         this.currentBalance += event.payload.amount
     }
 
-    private applyDebitAccountEvent(event: IAccountDebitedEvent) {
+    private applyDebitAccountEvent(event: AccountDebitedEvent) {
         this.currentBalance -= event.payload.amount
     }
 }
