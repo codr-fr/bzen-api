@@ -6,7 +6,7 @@ dotenvExpand.expand(env)
 
 import http from 'http'
 import app from './app'
-import { createAccount, creditAccount, debitAccount, getAccount, transferBetweenAccounts } from './domain/account/controller'
+import { getAccount, createAccount, creditAccount, debitAccount, transferBetweenAccounts } from './domain/account/controller'
 import { errorMiddleware } from './middlewares/exceptions'
 import { successMiddleware } from './middlewares/success'
 
