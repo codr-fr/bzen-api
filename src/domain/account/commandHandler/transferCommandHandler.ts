@@ -1,11 +1,11 @@
-import db from "../../../database/mongoose";
-import { Event } from "../../../models/event";
-import { ITransferCommand } from "../command/transferCommand";
-import { AccountCreditedEvent } from "../event/accountCreditedEvent";
-import { AccountDebitedEvent } from "../event/accountDebitedEvent";
+import db from "../../../database/mongoose"
+import { Event } from "../../../models/event"
+import { ITransferCommand } from "../command/transferCommand"
+import { AccountCreditedEvent } from "../event/accountCreditedEvent"
+import { AccountDebitedEvent } from "../event/accountDebitedEvent"
 
 export const transferCommandHandler = async (command: ITransferCommand) => {
-    await db();
+    await db()
 
     const eventDebited = new AccountDebitedEvent(command.fromUuid, command.amount)
     const eventCredited = new AccountCreditedEvent(command.toUuid, command.amount)

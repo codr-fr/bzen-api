@@ -1,10 +1,10 @@
-import Joi from "joi";
-import db from "../../../database/mongoose";
-import { ICommand } from "../../../interface/command";
-import { Event } from "../../../models/event";
-import { UsersAggregator } from "../aggregator/usersAggregator";
-import { USER_REGISTRED_EVENT } from "../event/userRegistredEvent";
-import { USER_UPDATED_EVENT } from "../event/userUpdatedEvent";
+import Joi from "joi"
+import db from "../../../database/mongoose"
+import { ICommand } from "../../../interface/command"
+import { Event } from "../../../models/event"
+import { UsersAggregator } from "../aggregator/usersAggregator"
+import { USER_REGISTRED_EVENT } from "../event/userRegistredEvent"
+import { USER_UPDATED_EVENT } from "../event/userUpdatedEvent"
 
 export interface IUpdateUserCommand extends ICommand {
     uuid: string
@@ -20,7 +20,7 @@ export const updateUserCommandValidate = async (command: IUpdateUserCommand) => 
     const isValidateResult: Joi.ValidationResult = schema.validate(command)
 
     if (isValidateResult?.error) {
-        throw new Error(`${isValidateResult.error?.message}`);
+        throw new Error(`${isValidateResult.error?.message}`)
     }
 
     await db()
@@ -33,6 +33,6 @@ export const updateUserCommandValidate = async (command: IUpdateUserCommand) => 
     )
     
     if (user !== undefined) {
-        throw new Error(`Username allready taken`);
+        throw new Error(`Username allready taken`)
     }
 }

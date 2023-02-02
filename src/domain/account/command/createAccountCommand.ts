@@ -1,8 +1,8 @@
-import Joi from "joi";
-import { ICommand } from "../../../interface/command";
+import Joi from "joi"
+import { ICommand } from "../../../interface/command"
 
 export interface ICreateAccountCommand extends ICommand {
-    initialBalance: number;
+    initialBalance: number
 }
 
 const createAccountCommandSchema = Joi.object({
@@ -10,8 +10,8 @@ const createAccountCommandSchema = Joi.object({
 })
 
 export const createAccountCommandValidate = (command: ICreateAccountCommand) => {
-    const isValidateResult: Joi.ValidationResult = createAccountCommandSchema.validate(command);
+    const isValidateResult: Joi.ValidationResult = createAccountCommandSchema.validate(command)
     if (isValidateResult?.error) {
-      throw new Error(`${isValidateResult.error?.message}`);
+      throw new Error(`${isValidateResult.error?.message}`)
     }
 }

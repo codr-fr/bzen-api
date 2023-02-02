@@ -1,14 +1,14 @@
-import express, { json, urlencoded } from 'express';
-import { cors } from './middlewares/cors';
-//const bearerToken = require('express-bearer-token');
-//const checkBearerToken = require('./middlewares/checkBearerToken');
+import express, { json, urlencoded } from 'express'
+import { cors } from './middlewares/cors'
+//const bearerToken = require('express-bearer-token')
+//const checkBearerToken = require('./middlewares/checkBearerToken')
 
-const app = express();
+const app = express()
 
-app.use(json()); // for application/json
-app.use(urlencoded({ extended: true })); //for application/xwww-
-app.use(cors);
-//app.use(bearerToken());
-//app.use(checkBearerToken);
+app.use(json()) // for application/json
+app.use(urlencoded({ extended: true })) //for application/xwww-
+app.use(cors)
+//app.use(bearerToken())
+//app.use(checkBearerToken)
 
-export default app;
+export default app

@@ -1,6 +1,6 @@
-import { IAggregator } from "../../../interface/aggregator";
-import { IEvent } from "../../../interface/event";
-import { UserAggregator } from "./userAggregator";
+import { IAggregator } from "../../../interface/aggregator"
+import { IEvent } from "../../../interface/event"
+import { UserAggregator } from "./userAggregator"
 
 export class UsersAggregator implements IAggregator {
     users: UserAggregator[] = []
@@ -18,7 +18,7 @@ export class UsersAggregator implements IAggregator {
             this.users.push(userAggregator)
         }
 
-        userAggregator.applyEvent(event);
+        userAggregator.applyEvent(event)
 
         return this
     }

@@ -1,9 +1,9 @@
-import Joi from "joi";
-import { ICommand } from "../../../interface/command";
+import Joi from "joi"
+import { ICommand } from "../../../interface/command"
 
 export interface ICreditAccountCommand extends ICommand {
-    uuid: string;
-    amount: number;
+    uuid: string
+    amount: number
 }
 
 const creditAccountCommandSchema = Joi.object({
@@ -12,8 +12,8 @@ const creditAccountCommandSchema = Joi.object({
 })
 
 export const creditAccountCommandValidate = (command: ICreditAccountCommand) => {
-    const isValidateResult: Joi.ValidationResult = creditAccountCommandSchema.validate(command);
+    const isValidateResult: Joi.ValidationResult = creditAccountCommandSchema.validate(command)
     if (isValidateResult?.error) {
-      throw new Error(`${isValidateResult.error?.message}`);
+      throw new Error(`${isValidateResult.error?.message}`)
     }
 }

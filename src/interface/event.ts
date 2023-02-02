@@ -1,6 +1,6 @@
 export interface IEvent {
     date?: Date
-    uuid: string;
-    name: string;
-    payload: Object;
+    uuid: string
+    name: string
+    payload: Object
 }

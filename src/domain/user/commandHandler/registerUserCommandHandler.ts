@@ -8,9 +8,6 @@ export const registerUserCommandHandler = async (command: IRegisterUserCommand) 
     await db();
 
     const saltRounds = process.env.BCRYPT_SALT_ROUND || '11'
-
-console.log(saltRounds)
-
     const salt = bcrypt.genSaltSync(parseInt(saltRounds));
     const hash = bcrypt.hashSync(command.password, salt);
 

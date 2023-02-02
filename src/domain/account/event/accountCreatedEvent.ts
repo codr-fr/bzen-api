@@ -1,5 +1,5 @@
 import { IEvent } from "../../../interface/event"
-import {v4} from "uuid";
+import {v4} from "uuid"
 
 export const ACCOUNT_CREATED_EVENT = "ACCOUNT_CREATED_EVENT"
 

@@ -1,10 +1,10 @@
-import Joi from "joi";
-import { ICommand } from "../../../interface/command";
+import Joi from "joi"
+import { ICommand } from "../../../interface/command"
 
 export interface ITransferCommand extends ICommand {
-    fromUuid: string;
-    toUuid: string;
-    amount: number;
+    fromUuid: string
+    toUuid: string
+    amount: number
 }
 
 const schema = Joi.object({
@@ -14,8 +14,8 @@ const schema = Joi.object({
 })
 
 export const transferCommandValidate = (command: ITransferCommand) => {
-    const isValidateResult: Joi.ValidationResult = schema.validate(command);
+    const isValidateResult: Joi.ValidationResult = schema.validate(command)
     if (isValidateResult?.error) {
-      throw new Error(`${isValidateResult.error?.message}`);
+      throw new Error(`${isValidateResult.error?.message}`)
     }
 }
