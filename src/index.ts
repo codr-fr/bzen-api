@@ -8,8 +8,8 @@ import http from 'http'
 import app from './app'
 import { getAccount, createAccount, creditAccount, debitAccount, transferBetweenAccounts } from './domain/account/controller'
 import { registerUser, updateUser, loginUser } from './domain/user/controller'
-import { errorMiddleware } from './middlewares/exceptions'
-import { successMiddleware } from './middlewares/success'
+import { error } from './middleware/error'
+import { success } from './middleware/success'
 import { expressjwt } from "express-jwt"
 import jwt from "jsonwebtoken"
 
@@ -33,8 +33,8 @@ app.post('/api/user/edit', updateUser)
 app.post('/api/user/login', loginUser)
 
 // Define after all routes
-app.use(successMiddleware)
-app.use(errorMiddleware)
+app.use(success)
+app.use(error)
 
 // Server port
 const port = process.env.API_PORT || '3000'

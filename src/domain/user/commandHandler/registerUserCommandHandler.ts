@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt"
 import db from "../../../database/mongoose"
-import { Event } from "../../../models/event"
+import { Event } from "../../../model/event"
 import { RegisterUserCommand } from "../command/registerUserCommand"
 import { UserRegistredEvent } from "../event/userRegistredEvent"
 

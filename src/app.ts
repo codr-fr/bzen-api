@@ -1,5 +1,5 @@
 import express, { json, urlencoded } from 'express'
-import { cors } from './middlewares/cors'
+import { cors } from './middleware/cors'
 //const bearerToken = require('express-bearer-token')
 //const checkBearerToken = require('./middlewares/checkBearerToken')
 

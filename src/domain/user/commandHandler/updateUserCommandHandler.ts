@@ -1,5 +1,5 @@
 import db from "../../../database/mongoose"
-import { Event } from "../../../models/event"
+import { Event } from "../../../model/event"
 import { UpdateUserCommand } from "../command/updateUserCommand"
 import { UserUpdatedEvent } from "../event/userUpdatedEvent"
 

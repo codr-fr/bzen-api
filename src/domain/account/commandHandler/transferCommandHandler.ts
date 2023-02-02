@@ -1,5 +1,5 @@
 import db from "../../../database/mongoose"
-import { Event } from "../../../models/event"
+import { Event } from "../../../model/event"
 import { TransferCommand } from "../command/transferCommand"
 import { AccountCreditedEvent } from "../event/accountCreditedEvent"
 import { AccountDebitedEvent } from "../event/accountDebitedEvent"
