@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt"
+import { v4 } from "uuid"
 import db from "../../../database/mongoose"
 import { Event } from "../../../model/event"
 import { RegisterUserCommand } from "../command/registerUserCommand"
@@ -11,7 +12,8 @@ export const registerUserCommandHandler = async (command: RegisterUserCommand) =
     const salt = bcrypt.genSaltSync(parseInt(saltRounds))
     const hash = bcrypt.hashSync(command.password, salt)
 
-    const event = new UserRegistredEvent(command.username, hash)
+    const uuid = v4()
+    const event = new UserRegistredEvent(uuid, command.username, hash)
     const eventDocument = new Event(event)
 
     await eventDocument.save().catch(err => {

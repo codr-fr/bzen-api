@@ -8,7 +8,7 @@ import { findUserByUsername } from "../repository"
 export const loginUser = async (req: Request, res: Response, next: NextFunction) => {
     await db()
 
-    let command: LoginUserCommand;
+    let command: LoginUserCommand
 
     try {
         command = new LoginUserCommand(req.body)

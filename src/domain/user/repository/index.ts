@@ -12,6 +12,6 @@ export const findAllUsers = async(): Promise<UserAggregator[]> => {
 }
 
 export const findUserByUsername = async(value: string): Promise<UserAggregator | undefined> => {
-    const users = await findAllUsers();
+    const users = await findAllUsers()
     return users.find(user => user.username === value)
 }

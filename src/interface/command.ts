@@ -27,5 +27,5 @@ export abstract class AbstractCommand implements ICommand {
 
     async validate(): Promise<void> {
 
-    }     
+    }
 }

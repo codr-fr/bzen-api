@@ -1,30 +1,29 @@
 import Joi from "joi"
 import { AbstractCommand, ICommandPayload } from "../../../interface/command"
-import { validateUserNameIsAvailable } from "../validators"
 
 interface Payload extends ICommandPayload {
+    accountId: string
     userId: string
-    username: string
+    role: string
 }
 
-export class UpdateUserCommand extends AbstractCommand {
-    userId: string = ''
-    username: string = ''
-    
+export class AttachAccountCommand extends AbstractCommand {
+    accountId: string
+    userId: string
+    role: string
+
     constructor(payload: Payload) {
         super(payload)
+        this.accountId = payload.accountId
         this.userId = payload.userId
-        this.username = payload.username
+        this.role = payload.role
     }
 
     getSchema() {
         return Joi.object({
+            accountId: Joi.string().uuid().required(),
             userId: Joi.string().uuid().required(),
-            username: Joi.string().required(),
+            role: Joi.string().required()
         })
-    }
-
-    async validate(): Promise<void> {
-        await validateUserNameIsAvailable(this.username)
     }
 }

@@ -6,7 +6,7 @@ import { AccountDebitedEvent } from "../event/accountDebitedEvent"
 export const debitAccountCommandHandler = async (command: DebitAccountCommand) => {
     await db()
 
-    const event = new AccountDebitedEvent(command.uuid, command.amount)
+    const event = new AccountDebitedEvent(command.accountId, command.amount)
     const eventDocument = new Event(event)
 
     await eventDocument.save().catch(err => {

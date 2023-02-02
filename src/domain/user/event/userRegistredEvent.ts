@@ -14,8 +14,8 @@ export class UserRegistredEvent implements IEvent {
     name: string = USER_REGISTRED_EVENT
     payload: Payload
 
-    constructor(username: string, password: string) {
-        this.uuid = v4() 
+    constructor(userId: string, username: string, password: string) {
+        this.uuid = userId
         this.payload = {
             username,
             password

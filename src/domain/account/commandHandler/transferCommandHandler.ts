@@ -7,8 +7,8 @@ import { AccountDebitedEvent } from "../event/accountDebitedEvent"
 export const transferCommandHandler = async (command: TransferCommand) => {
     await db()
 
-    const eventDebited = new AccountDebitedEvent(command.fromUuid, command.amount)
-    const eventCredited = new AccountCreditedEvent(command.toUuid, command.amount)
+    const eventDebited = new AccountDebitedEvent(command.fromAccountId, command.amount)
+    const eventCredited = new AccountCreditedEvent(command.toAccountId, command.amount)
      
     Event.insertMany([
         eventDebited,

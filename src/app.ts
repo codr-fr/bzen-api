@@ -12,7 +12,10 @@ app.use(
     expressjwt({
         secret: String(process.env.JWT_SECRET),
         algorithms: [<jwt.Algorithm>process.env.JWT_ALGORITH || 'HS256'],
-    }).unless({ path: ["/api/user/login"] })
+    }).unless({ path: [
+        "/api/user/register",
+        "/api/user/login"
+    ] })
 )
 
 export default app

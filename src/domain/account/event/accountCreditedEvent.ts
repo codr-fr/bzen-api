@@ -12,8 +12,8 @@ export class AccountCreditedEvent implements IEvent {
     name: string = ACCOUNT_CREDITED_EVENT
     payload: Payload
 
-    constructor(uuid: string, amount: number) {
-        this.uuid = uuid
+    constructor(accountId: string, amount: number) {
+        this.uuid = accountId
         this.payload = {
             amount
         }

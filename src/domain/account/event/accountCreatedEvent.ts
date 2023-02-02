@@ -1,5 +1,4 @@
 import { IEvent } from "../../../interface/event"
-import {v4} from "uuid"
 
 export const ACCOUNT_CREATED_EVENT = "ACCOUNT_CREATED_EVENT"
 
@@ -13,8 +12,8 @@ export class AccountCreatedEvent implements IEvent {
     name: string = ACCOUNT_CREATED_EVENT
     payload: Payload
 
-    constructor(initialBalance: number) {
-        this.uuid = v4() 
+    constructor(accountId: string, initialBalance: number) {
+        this.uuid = accountId 
         this.payload = {
             initialBalance
         }
