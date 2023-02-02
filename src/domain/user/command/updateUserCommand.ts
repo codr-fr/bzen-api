@@ -1,15 +1,20 @@
 import Joi from "joi"
-import { AbstractCommand } from "../../../interface/command"
+import { AbstractCommand, ICommandPayload } from "../../../interface/command"
 import { validateUserNameIsAvailable } from "../validators"
+
+interface Payload extends ICommandPayload {
+    uuid: string
+    username: string
+}
 
 export class UpdateUserCommand extends AbstractCommand {
     uuid: string = ''
     username: string = ''
     
-    constructor(command: UpdateUserCommand) {
-        super()
-        this.uuid = command.uuid
-        this.username = command.username
+    constructor(payload: Payload) {
+        super(payload)
+        this.uuid = payload.uuid
+        this.username = payload.username
     }
 
     getSchema() {
@@ -20,7 +25,6 @@ export class UpdateUserCommand extends AbstractCommand {
     }
 
     async validate(): Promise<void> {
-        await super.validate()
         await validateUserNameIsAvailable(this.username)
     }
 }

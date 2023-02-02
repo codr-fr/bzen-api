@@ -11,9 +11,10 @@ import { UserAggregator } from "../aggregator/userAggregator"
 export const loginUser = async (req: Request, res: Response, next: NextFunction) => {
     await db()
 
-    const command = new LoginUserCommand({...req.body})
+    let command: LoginUserCommand;
+
     try {
-        await command.validate()
+        command = new LoginUserCommand(req.body)
     } catch (error: any) {
         next(error)
         return

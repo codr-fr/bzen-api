@@ -1,18 +1,31 @@
 import Joi from "joi"
 
+export interface ICommandPayload {
+
+}
+
 export interface ICommand {
     getSchema(): Joi.ObjectSchema
+    validateSchema(payload: ICommandPayload): void
     validate(): void
 }
 
 export abstract class AbstractCommand implements ICommand {
     abstract getSchema(): Joi.ObjectSchema
 
-    async validate(): Promise<void> {
-        const isValidateResult: Joi.ValidationResult = this.getSchema().validate(this)
+    constructor(payload: ICommandPayload) {
+        this.validateSchema(payload)
+    }
 
-        if (isValidateResult?.error) {
-            throw new Error(`${isValidateResult.error?.message}`)
+    validateSchema(payload: ICommandPayload): void {
+        const validationResult: Joi.ValidationResult = this.getSchema().validate(payload)
+
+        if (validationResult?.error) {
+            throw new Error(`${validationResult.error?.message}`)
         }
+    }
+
+    async validate(): Promise<void> {
+
     }     
 }

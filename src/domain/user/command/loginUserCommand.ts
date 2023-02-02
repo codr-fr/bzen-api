@@ -1,14 +1,19 @@
 import Joi from "joi"
-import { AbstractCommand } from "../../../interface/command"
+import { AbstractCommand, ICommandPayload } from "../../../interface/command"
+
+interface Payload extends ICommandPayload {
+    username: string
+    password: string
+}
 
 export class LoginUserCommand extends AbstractCommand {
     username: string
     password: string
 
-    constructor(command: LoginUserCommand) {
-        super()
-        this.username = command.username
-        this.password = command.password
+    constructor(payload: Payload) {
+        super(payload)
+        this.username = payload.username
+        this.password = payload.password
     }
 
     getSchema() {
@@ -17,8 +22,4 @@ export class LoginUserCommand extends AbstractCommand {
             password: Joi.string().required(),
         })
     }
-
-    async validate(): Promise<void> {
-        await super.validate()
-    }    
 }

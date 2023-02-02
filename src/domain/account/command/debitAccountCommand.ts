@@ -1,14 +1,19 @@
 import Joi from "joi"
-import { AbstractCommand } from "../../../interface/command"
+import { AbstractCommand, ICommandPayload } from "../../../interface/command"
+
+interface Payload extends ICommandPayload {
+    uuid: string
+    amount: number
+}
 
 export class DebitAccountCommand extends AbstractCommand {
     uuid: string
     amount: number
 
-    constructor(command: DebitAccountCommand) {
-        super()
-        this.uuid = command.uuid
-        this.amount = command.amount
+    constructor(payload: Payload) {
+        super(payload)
+        this.uuid = payload.uuid
+        this.amount = payload.amount
     }
 
     getSchema() {

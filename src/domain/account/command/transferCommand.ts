@@ -1,16 +1,22 @@
 import Joi from "joi"
-import { AbstractCommand } from "../../../interface/command"
+import { AbstractCommand, ICommandPayload } from "../../../interface/command"
+
+interface Payload extends ICommandPayload {
+    fromUuid: string
+    toUuid: string
+    amount: number
+}
 
 export class TransferCommand extends AbstractCommand {
     fromUuid: string
     toUuid: string
     amount: number
 
-    constructor(command: TransferCommand) {
-        super()
-        this.fromUuid = command.fromUuid
-        this.toUuid = command.toUuid
-        this.amount = command.amount
+    constructor(payload: Payload) {
+        super(payload)
+        this.fromUuid = payload.fromUuid
+        this.toUuid = payload.toUuid
+        this.amount = payload.amount
     }
 
     getSchema() {

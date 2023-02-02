@@ -1,12 +1,16 @@
 import Joi from "joi"
-import { AbstractCommand } from "../../../interface/command"
+import { AbstractCommand, ICommandPayload } from "../../../interface/command"
+
+interface Payload extends ICommandPayload {
+    initialBalance: number
+}
 
 export class CreateAccountCommand extends AbstractCommand {
     initialBalance: number
 
-    constructor(command: CreateAccountCommand) {
-        super()
-        this.initialBalance = command.initialBalance
+    constructor(payload: Payload) {
+        super(payload)
+        this.initialBalance = payload.initialBalance
     }
 
     getSchema() {

@@ -10,6 +10,16 @@ import { getAccount, createAccount, creditAccount, debitAccount, transferBetween
 import { registerUser, updateUser, loginUser } from './domain/user/controller'
 import { errorMiddleware } from './middlewares/exceptions'
 import { successMiddleware } from './middlewares/success'
+import { expressjwt } from "express-jwt"
+import jwt from "jsonwebtoken"
+
+// Middlewares
+app.use(
+    expressjwt({
+        secret: String(process.env.JWT_SECRET),
+        algorithms: [<jwt.Algorithm>process.env.JWT_ALGORITH || 'HS256'],
+    }).unless({ path: ["/api/user/login"] })
+)
 
 // App routes
 app.get('/api/account/:uuid', getAccount)
