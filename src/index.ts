@@ -7,7 +7,7 @@ dotenvExpand.expand(env)
 import http from 'http'
 import app from './app'
 import { getAccount, createAccount, creditAccount, debitAccount, transferBetweenAccounts } from './domain/account/controller'
-import { registerUser, updateUser } from './domain/user/controller'
+import { registerUser, updateUser, loginUser } from './domain/user/controller'
 import { errorMiddleware } from './middlewares/exceptions'
 import { successMiddleware } from './middlewares/success'
 
@@ -20,6 +20,7 @@ app.post('/api/account/transfer', transferBetweenAccounts)
 
 app.post('/api/user', registerUser)
 app.post('/api/user/edit', updateUser)
+app.post('/api/user/login', loginUser)
 
 // Define after all routes
 app.use(successMiddleware)
@@ -48,5 +49,6 @@ process.on("unhandledRejection", (err: any) => {
 process.on("uncaughtException", (err: any) => {
     console.log(err.message)
 })
+
 
 

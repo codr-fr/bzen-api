@@ -1,20 +1,16 @@
-import { IAggregator } from "../../../interface/aggregator"
+import { AbstractAggregator } from "../../../interface/aggregator"
 import { IEvent } from "../../../interface/event"
 import { UserRegistredEvent, USER_REGISTRED_EVENT } from "../event/userRegistredEvent"
 import { UserUpdatedEvent, USER_UPDATED_EVENT } from "../event/userUpdatedEvent"
 
-export class UserAggregator implements IAggregator {
+export class UserAggregator extends AbstractAggregator {
     readonly id: string
     username: string = ''
     password: string = ''
 
     constructor(id: string) {
+        super()
         this.id = id
-    }
-
-    applyEvents(events: IEvent[]): UserAggregator {
-        events.map(event => this.applyEvent(event))
-        return this
     }
 
     applyEvent(event: IEvent): UserAggregator {

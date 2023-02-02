@@ -14,5 +14,5 @@ export abstract class AbstractCommand implements ICommand {
         if (isValidateResult?.error) {
             throw new Error(`${isValidateResult.error?.message}`)
         }
-    }        
+    }     
 }

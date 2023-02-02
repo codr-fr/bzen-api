@@ -8,7 +8,7 @@ export const getAccount = async (req: Request, res: Response) => {
 
     const uuid: string = req.params.uuid
     const events = await Event.find({uuid}).exec()
-    const account: AccountAggregator = new AccountAggregator(uuid).applyEvents(events)
+    const account: AccountAggregator = <AccountAggregator> new AccountAggregator(uuid).applyEvents(events)
 
-    res.status(200).json({account})
+    res.status(200).json(account.toObject())
 }

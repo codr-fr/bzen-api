@@ -1,23 +1,19 @@
-import { IAggregator } from "../../../interface/aggregator"
+import { AbstractAggregator } from "../../../interface/aggregator"
 import { IEvent } from "../../../interface/event"
 import { ACCOUNT_CREATED_EVENT, AccountCreatedEvent } from "../event/accountCreatedEvent"
 import { ACCOUNT_CREDITED_EVENT, AccountCreditedEvent } from "../event/accountCreditedEvent"
 import { ACCOUNT_DEBITED_EVENT, AccountDebitedEvent } from "../event/accountDebitedEvent"
 
-export class AccountAggregator implements IAggregator {
+export class AccountAggregator extends AbstractAggregator {
     readonly id: string
     currentBalance: number
     estimatedBalance: number
 
     constructor(id: string, currentBalance?: number, estimatedBalance?: number) {
+        super()
         this.id = id
         this.currentBalance = currentBalance ?? 0
         this.estimatedBalance = estimatedBalance ?? 0
-    }
-
-    applyEvents(events: IEvent[]): AccountAggregator {
-        events.map(event => this.applyEvent(event))
-        return this
     }
 
     applyEvent(event: IEvent): AccountAggregator {
