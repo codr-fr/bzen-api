@@ -6,13 +6,13 @@ export interface IDebitAccountCommand extends ICommand {
     amount: number
 }
 
-const debitAccountCommandSchema = Joi.object({
+const schema = Joi.object({
     uuid: Joi.string().uuid(),
     amount: Joi.number().positive()
 })
 
 export const creditAccountCommandValidate = (command: IDebitAccountCommand) => {
-    const isValidateResult: Joi.ValidationResult = debitAccountCommandSchema.validate(command)
+    const isValidateResult: Joi.ValidationResult = schema.validate(command)
     if (isValidateResult?.error) {
       throw new Error(`${isValidateResult.error?.message}`)
     }

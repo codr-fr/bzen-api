@@ -11,13 +11,13 @@ export interface IRegisterUserCommand extends ICommand {
     password: string
 }
 
-const registerUserCommandSchema = Joi.object({
+const schema = Joi.object({
     username: Joi.string().required(),
     password: Joi.string().required(),
 })
 
 export const registerUserCommandValidate = async (command: IRegisterUserCommand) => {
-    const isValidateResult: Joi.ValidationResult = registerUserCommandSchema.validate(command)
+    const isValidateResult: Joi.ValidationResult = schema.validate(command)
 
     if (isValidateResult?.error) {
         throw new Error(`${isValidateResult.error?.message}`)
