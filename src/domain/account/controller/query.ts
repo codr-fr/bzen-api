@@ -1,14 +1,7 @@
 import { Request, Response } from "express"
-import db from "../../../database/mongoose"
-import { Event } from "../../../model/event"
-import { AccountAggregator } from "../aggregator/accountAggregator"
+import { findAccount } from "../repository"
 
 export const getAccount = async (req: Request, res: Response) => {
-    await db()
-
-    const uuid: string = req.params.uuid
-    const events = await Event.find({uuid}).exec()
-    const account: AccountAggregator = <AccountAggregator> new AccountAggregator(uuid).applyEvents(events)
-
+    const account = await findAccount(req.params.uuid)
     res.status(200).json(account.toObject())
 }

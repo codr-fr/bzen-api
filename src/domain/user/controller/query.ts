@@ -3,11 +3,7 @@ import bcrypt from "bcrypt"
 import db from "../../../database/mongoose"
 import jwt from "jsonwebtoken"
 import { LoginUserCommand } from "../command/loginUserCommand"
-import { Event } from "../../../model/event"
-import { USER_REGISTRED_EVENT } from "../event/userRegistredEvent"
-import { USER_UPDATED_EVENT } from "../event/userUpdatedEvent"
-import { UsersAggregator } from "../aggregator/usersAggregator"
-import { UserAggregator } from "../aggregator/userAggregator"
+import { findUserByUsername } from "../repository"
 
 export const loginUser = async (req: Request, res: Response, next: NextFunction) => {
     await db()
@@ -21,10 +17,8 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
         return
     }
 
-    const events = await Event.find({name: { $in: [USER_REGISTRED_EVENT, USER_UPDATED_EVENT]}}).exec()
-    const usersAggregator: UsersAggregator = <UsersAggregator> new UsersAggregator().applyEvents(events)
-    const user: UserAggregator | undefined = usersAggregator.users.find(user => user.username === command.username)
-    
+    const user = await findUserByUsername(command.username)
+
     if (user === undefined) {
         console.error(`user not found`)
         next(new Error(`Can't login`))

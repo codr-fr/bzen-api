@@ -1,7 +1,5 @@
 /node_modules
-/_trash
 /dist
 .env
 docker-compose.override.yml
-
 TODO.md
