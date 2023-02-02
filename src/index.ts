@@ -7,15 +7,20 @@ dotenvExpand.expand(env)
 import http from 'http'
 import app from './app'
 import { getAccount, createAccount, creditAccount, debitAccount, transferBetweenAccounts } from './domain/account/controller'
+import { registerUser } from './domain/user/controller'
 import { errorMiddleware } from './middlewares/exceptions'
 import { successMiddleware } from './middlewares/success'
 
+// App routes
 app.get('/api/account/:uuid', getAccount)
 app.post('/api/account', createAccount)
 app.post('/api/account/credit', creditAccount)
 app.post('/api/account/debit', debitAccount)
 app.post('/api/account/transfer', transferBetweenAccounts)
 
+app.post('/api/user', registerUser)
+
+// Define after all routes
 app.use(successMiddleware)
 app.use(errorMiddleware)
 
