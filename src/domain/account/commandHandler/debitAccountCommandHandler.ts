@@ -1,9 +1,9 @@
 import db from "../../../database/mongoose"
 import { Event } from "../../../models/event"
-import { IDebitAccountCommand } from "../command/debitAccountCommand"
+import { DebitAccountCommand } from "../command/debitAccountCommand"
 import { AccountDebitedEvent } from "../event/accountDebitedEvent"
 
-export const debitAccountCommandHandler = async (command: IDebitAccountCommand) => {
+export const debitAccountCommandHandler = async (command: DebitAccountCommand) => {
     await db()
 
     const event = new AccountDebitedEvent(command.uuid, command.amount)

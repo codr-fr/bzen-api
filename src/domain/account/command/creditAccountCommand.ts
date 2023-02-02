@@ -1,19 +1,24 @@
 import Joi from "joi"
 import { ICommand } from "../../../interface/command"
+import { validateSchema } from "../../user/validators"
 
-export interface ICreditAccountCommand extends ICommand {
+export class CreditAccountCommand implements ICommand {
     uuid: string
     amount: number
-}
 
-const schema = Joi.object({
-    uuid: Joi.string().uuid(),
-    amount: Joi.number().positive()
-})
-
-export const creditAccountCommandValidate = (command: ICreditAccountCommand) => {
-    const isValidateResult: Joi.ValidationResult = schema.validate(command)
-    if (isValidateResult?.error) {
-      throw new Error(`${isValidateResult.error?.message}`)
+    constructor(command: CreditAccountCommand) {
+        this.uuid = command.uuid
+        this.amount = command.amount
     }
+
+    getSchema(): Joi.ObjectSchema<any> {
+        return Joi.object({
+            uuid: Joi.string().uuid(),
+            amount: Joi.number().positive()
+        })
+    }
+
+    validate(): void {
+        validateSchema(this)
+    }    
 }

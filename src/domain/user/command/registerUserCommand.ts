@@ -1,35 +1,25 @@
 import Joi from "joi"
-import db from "../../../database/mongoose"
 import { ICommand } from "../../../interface/command"
-import { Event } from "../../../models/event"
-import { UsersAggregator } from "../aggregator/usersAggregator"
-import { USER_REGISTRED_EVENT } from "../event/userRegistredEvent"
-import { USER_UPDATED_EVENT } from "../event/userUpdatedEvent"
+import { validateSchema, validateUserNameIsAvailable } from "../validators"
 
-export interface IRegisterUserCommand extends ICommand {
+export class RegisterUserCommand implements ICommand {
     username: string
     password: string
-}
 
-const schema = Joi.object({
-    username: Joi.string().required(),
-    password: Joi.string().required(),
-})
-
-export const registerUserCommandValidate = async (command: IRegisterUserCommand) => {
-    const isValidateResult: Joi.ValidationResult = schema.validate(command)
-
-    if (isValidateResult?.error) {
-        throw new Error(`${isValidateResult.error?.message}`)
+    constructor(command: RegisterUserCommand) {
+        this.username = command.username
+        this.password = command.password
     }
 
-    await db()
-    const events = await Event.find({name: { $in: [USER_REGISTRED_EVENT, USER_UPDATED_EVENT]}}).exec()
-    const usersAggregator: UsersAggregator = new UsersAggregator().applyEvents(events)
-
-    const user = usersAggregator.users.find(user => user.username === command.username)
-    
-    if (user !== undefined) {
-        throw new Error(`Username allready taken`)
+    getSchema(): Joi.ObjectSchema<any> {
+        return Joi.object({
+            username: Joi.string().required(),
+            password: Joi.string().required(),
+        })
     }
+
+    async validate(): Promise<void> {
+        validateSchema(this)
+        await validateUserNameIsAvailable(this.username)
+    }    
 }

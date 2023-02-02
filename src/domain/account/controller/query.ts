@@ -3,8 +3,6 @@ import db from "../../../database/mongoose"
 import { Event } from "../../../models/event"
 import { AccountAggregator } from "../aggregator/accountAggregator"
 
-// import amqplib from 'amqplib'
-
 export const getAccount = async (req: Request, res: Response) => {
     await db()
 

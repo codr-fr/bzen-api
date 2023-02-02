@@ -1,6 +1,6 @@
 import mongoose, { connect, Connection } from 'mongoose'
 
-mongoose.set('strictQuery', false);
+mongoose.set('strictQuery', false)
 
 const MONGO_URI = process.env.MONGO_URI || "mongodb://username:password@127.0.0.1/database"
 
@@ -11,7 +11,7 @@ if (!MONGO_URI) {
 }
 
 declare global {
-    var mongoose: any;
+    var mongoose: any
 }
 
 let cached = global.mongoose
@@ -34,4 +34,4 @@ async function db (): Promise<Connection> {
     return cached.conn
 }
 
-export default db;
+export default db

@@ -1,15 +1,15 @@
 import { NextFunction, Request, Response } from "express"
-import { IRegisterUserCommand, registerUserCommandValidate } from "../command/registerUserCommand"
-import { IUpdateUserCommand, updateUserCommandValidate } from "../command/updateUserCommand"
+import { RegisterUserCommand } from "../command/registerUserCommand"
+import { UpdateUserCommand } from "../command/updateUserCommand"
 import { registerUserCommandHandler } from "../commandHandler/registerUserCommandHandler"
 import { updateUserCommandHandler } from "../commandHandler/updateUserCommandHandler"
 
 export const registerUser = async (req: Request, res: Response, next: NextFunction) => {
 
-    const command: IRegisterUserCommand = {...req.body}
+    const command = new RegisterUserCommand(req.body)
 
     try {
-        await registerUserCommandValidate(command)
+        await command.validate()
         await registerUserCommandHandler(command)
         next()
     } catch (error: any) {
@@ -19,10 +19,10 @@ export const registerUser = async (req: Request, res: Response, next: NextFuncti
 
 export const updateUser = async (req: Request, res: Response, next: NextFunction) => {
 
-    const command: IUpdateUserCommand = {...req.body}
+    const command = new UpdateUserCommand(req.body)
 
     try {
-        await updateUserCommandValidate(command)
+        await command.validate()
         await updateUserCommandHandler(command)
         next()
     } catch (error: any) {

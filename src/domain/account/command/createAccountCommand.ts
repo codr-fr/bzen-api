@@ -1,17 +1,21 @@
 import Joi from "joi"
 import { ICommand } from "../../../interface/command"
+import { validateSchema } from "../../user/validators"
 
-export interface ICreateAccountCommand extends ICommand {
+export class CreateAccountCommand implements ICommand {
     initialBalance: number
-}
 
-const schema = Joi.object({
-    initialBalance: Joi.number().required()
-})
-
-export const createAccountCommandValidate = (command: ICreateAccountCommand) => {
-    const isValidateResult: Joi.ValidationResult = schema.validate(command)
-    if (isValidateResult?.error) {
-      throw new Error(`${isValidateResult.error?.message}`)
+    constructor(command: CreateAccountCommand) {
+        this.initialBalance = command.initialBalance
     }
+
+    getSchema(): Joi.ObjectSchema<any> {
+        return Joi.object({
+            initialBalance: Joi.number().required()
+        })
+    }
+
+    async validate(): Promise<void> {
+        validateSchema(this)
+    }    
 }

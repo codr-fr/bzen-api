@@ -1,11 +1,11 @@
 import db from "../../../database/mongoose"
 import { Event } from "../../../models/event"
-import { IUpdateUserCommand } from "../command/updateUserCommand"
+import { UpdateUserCommand } from "../command/updateUserCommand"
 import { UserUpdatedEvent } from "../event/userUpdatedEvent"
 
-export const updateUserCommandHandler = async (command: IUpdateUserCommand) => {
+export const updateUserCommandHandler = async (command: UpdateUserCommand) => {
     await db()
-
+    
     const event = new UserUpdatedEvent(command.uuid, command.username)
     const eventDocument = new Event(event)
 

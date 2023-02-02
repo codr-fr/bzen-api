@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from "express"
 
 // import amqplib from 'amqplib'
-import { createAccountCommandValidate, ICreateAccountCommand } from "../command/createAccountCommand"
-import { creditAccountCommandValidate, ICreditAccountCommand } from "../command/creditAccountCommand"
-import { IDebitAccountCommand } from "../command/debitAccountCommand"
-import { ITransferCommand, transferCommandValidate } from "../command/transferCommand"
+import { CreateAccountCommand } from "../command/createAccountCommand"
+import { CreditAccountCommand } from "../command/creditAccountCommand"
+import { DebitAccountCommand } from "../command/debitAccountCommand"
+import { TransferCommand } from "../command/transferCommand"
 import { createAccountCommandHandler } from "../commandHandler/createAccountCommandHandler"
 import { creditAccountCommandHandler } from "../commandHandler/creditAccountCommandHandler"
 import { debitAccountCommandHandler } from "../commandHandler/debitAccountCommandHandler"
@@ -12,10 +12,10 @@ import { transferCommandHandler } from "../commandHandler/transferCommandHandler
 
 export const createAccount = async (req: Request, res: Response, next: NextFunction) => {
 
-    const command: ICreateAccountCommand = {...req.body}
+    const command = new CreateAccountCommand(req.body)
 
     try {
-        createAccountCommandValidate(command)
+        command.validate()
         await createAccountCommandHandler(command)
         next()
     } catch (error: any) {
@@ -25,10 +25,10 @@ export const createAccount = async (req: Request, res: Response, next: NextFunct
 
 export const creditAccount = async (req: Request, res: Response, next: NextFunction) => {
 
-    const command: ICreditAccountCommand = {...req.body}
+    const command = new CreditAccountCommand(req.body)
 
     try {
-        creditAccountCommandValidate(command)
+        command.validate()
         await creditAccountCommandHandler(command)
         next()
     } catch (error: any) {
@@ -38,10 +38,10 @@ export const creditAccount = async (req: Request, res: Response, next: NextFunct
 
 export const debitAccount = async (req: Request, res: Response, next: NextFunction) => {
 
-    const command: IDebitAccountCommand = {...req.body}
+    const command = new DebitAccountCommand(req.body)
 
     try {
-        creditAccountCommandValidate(command)
+        command.validate()
         await debitAccountCommandHandler(command)
         next()
     } catch (error: any) {
@@ -52,10 +52,10 @@ export const debitAccount = async (req: Request, res: Response, next: NextFuncti
 
 export const transferBetweenAccounts = async (req: Request, res: Response, next: NextFunction) => {
 
-    const command: ITransferCommand = {...req.body}
+    const command = new TransferCommand(req.body)
 
     try {
-        transferCommandValidate(command)
+        command.validate()
         await transferCommandHandler(command)
         next()
     } catch (error: any) {

@@ -1,10 +1,10 @@
 import db from "../../../database/mongoose"
 import { Event } from "../../../models/event"
-import { ITransferCommand } from "../command/transferCommand"
+import { TransferCommand } from "../command/transferCommand"
 import { AccountCreditedEvent } from "../event/accountCreditedEvent"
 import { AccountDebitedEvent } from "../event/accountDebitedEvent"
 
-export const transferCommandHandler = async (command: ITransferCommand) => {
+export const transferCommandHandler = async (command: TransferCommand) => {
     await db()
 
     const eventDebited = new AccountDebitedEvent(command.fromUuid, command.amount)
@@ -15,7 +15,6 @@ export const transferCommandHandler = async (command: ITransferCommand) => {
         eventCredited
     ]).catch(err => {
         console.error({ err })
-
         throw new Error('Error!')
     })
 }
