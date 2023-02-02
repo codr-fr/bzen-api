@@ -1,17 +1,18 @@
 import Joi from "joi"
-import { ICommand } from "../../../interface/command"
-import { validateSchema, validateUserNameIsAvailable } from "../validators"
+import { AbstractCommand } from "../../../interface/command"
+import { validateUserNameIsAvailable } from "../validators"
 
-export class UpdateUserCommand implements ICommand {
+export class UpdateUserCommand extends AbstractCommand {
     uuid: string = ''
     username: string = ''
     
     constructor(command: UpdateUserCommand) {
+        super()
         this.uuid = command.uuid
         this.username = command.username
     }
 
-    getSchema(): Joi.ObjectSchema<any> {
+    getSchema() {
         return Joi.object({
             uuid: Joi.string().uuid().required(),
             username: Joi.string().required(),
@@ -19,7 +20,7 @@ export class UpdateUserCommand implements ICommand {
     }
 
     async validate(): Promise<void> {
-        validateSchema(this)
+        await super.validate()
         await validateUserNameIsAvailable(this.username)
     }
 }

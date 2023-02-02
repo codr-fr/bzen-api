@@ -1,24 +1,20 @@
 import Joi from "joi"
-import { ICommand } from "../../../interface/command"
-import { validateSchema } from "../../user/validators"
+import { AbstractCommand } from "../../../interface/command"
 
-export class DebitAccountCommand implements ICommand {
+export class DebitAccountCommand extends AbstractCommand {
     uuid: string
     amount: number
 
     constructor(command: DebitAccountCommand) {
+        super()
         this.uuid = command.uuid
         this.amount = command.amount
     }
 
-    getSchema(): Joi.ObjectSchema<any> {
+    getSchema() {
         return Joi.object({
             uuid: Joi.string().uuid(),
             amount: Joi.number().positive()
         })
-    }
-
-    validate(): void {
-        validateSchema(this)
     }
 }

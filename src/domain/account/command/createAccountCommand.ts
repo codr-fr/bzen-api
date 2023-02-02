@@ -1,21 +1,17 @@
 import Joi from "joi"
-import { ICommand } from "../../../interface/command"
-import { validateSchema } from "../../user/validators"
+import { AbstractCommand } from "../../../interface/command"
 
-export class CreateAccountCommand implements ICommand {
+export class CreateAccountCommand extends AbstractCommand {
     initialBalance: number
 
     constructor(command: CreateAccountCommand) {
+        super()
         this.initialBalance = command.initialBalance
     }
 
-    getSchema(): Joi.ObjectSchema<any> {
+    getSchema() {
         return Joi.object({
             initialBalance: Joi.number().required()
         })
     }
-
-    async validate(): Promise<void> {
-        validateSchema(this)
-    }    
 }
