@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express"
+import bcrypt from "bcrypt"
 import db from "../../../database/mongoose"
 import jwt from "jsonwebtoken"
 import { LoginUserCommand } from "../command/loginUserCommand"
@@ -25,7 +26,14 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
     const user: UserAggregator | undefined = usersAggregator.users.find(user => user.username === command.username)
     
     if (user === undefined) {
-        next(new Error(`User not found`))
+        console.error(`user not found`)
+        next(new Error(`Can't login`))
+        return
+    }
+
+    if(!bcrypt.compareSync(command.password, user.password)) {
+        console.error(`password do no match`)
+        next(new Error(`Can't login`))
         return
     }
 
