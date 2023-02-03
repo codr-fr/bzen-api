@@ -5,7 +5,7 @@ import { UserAggregator } from "./userAggregator"
 export class UsersAggregator extends AbstractAggregator {
     users: UserAggregator[] = []
 
-    applyEvent(event: IEvent): UsersAggregator {
+    applyEvent(event: IEvent): this {
         let userAggregator = this.users.find(aggregator => aggregator.id === event.uuid)
 
         if(userAggregator === undefined) {

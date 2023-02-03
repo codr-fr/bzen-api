@@ -13,7 +13,7 @@ export class UserAggregator extends AbstractAggregator {
         this.id = id
     }
 
-    applyEvent(event: IEvent): UserAggregator {
+    applyEvent(event: IEvent): this {
         switch (event.name) {
             case USER_REGISTRED_EVENT:
                 this.applyRegisterUserEvent(<UserRegistredEvent>event)

@@ -2,19 +2,19 @@ import { IEvent } from "./event"
 
 export interface IAggregator {
     toObject(filter?: object): object
-    applyEvent(event: IEvent): IAggregator
-    applyEvents(events: IEvent[]): IAggregator
+    applyEvent(event: IEvent): this
+    applyEvents(events: IEvent[]): this
 }
 
 export abstract class AbstractAggregator implements IAggregator {
-    abstract applyEvent(event: IEvent): IAggregator
+    abstract applyEvent(event: IEvent): this
 
-    applyEvents(events: IEvent[]): AbstractAggregator {
+    applyEvents(events: IEvent[]): this {
         events.map(event => this.applyEvent(event))
         return this
     }
 
-    toObject(filters?: string[]) {
+    toObject(filters?: string[]): object {
         const result: {[key: string]: any} = {...this}
         filters?.forEach(f => delete result[f])
         return result

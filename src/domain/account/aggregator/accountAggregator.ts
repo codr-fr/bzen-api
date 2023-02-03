@@ -16,7 +16,7 @@ export class AccountAggregator extends AbstractAggregator {
         this.estimatedBalance = estimatedBalance ?? 0
     }
 
-    applyEvent(event: IEvent): AccountAggregator {
+    applyEvent(event: IEvent): this {
         switch (event.name) {
             case ACCOUNT_CREATED_EVENT:
                 this.applyCreateAccountEvent(<AccountCreatedEvent>event)
