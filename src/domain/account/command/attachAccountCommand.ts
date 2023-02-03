@@ -1,16 +1,17 @@
 import Joi from "joi"
 import { AbstractCommand, ICommandPayload } from "../../../interface/command"
+import { Role } from "../event/accountAttachedEvent"
 
 interface Payload extends ICommandPayload {
     accountId: string
     userId: string
-    role: string
+    role: Role
 }
 
 export class AttachAccountCommand extends AbstractCommand {
     accountId: string
     userId: string
-    role: string
+    role: Role
 
     constructor(payload: Payload) {
         super(payload)

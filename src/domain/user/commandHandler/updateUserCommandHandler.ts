@@ -6,7 +6,7 @@ import { UserUpdatedEvent } from "../event/userUpdatedEvent"
 export const updateUserCommandHandler = async (command: UpdateUserCommand) => {
     await db()
     
-    const event = new UserUpdatedEvent(command.uuid, command.username)
+    const event = new UserUpdatedEvent(command.userId, command.username)
     const eventDocument = new Event(event)
 
     await eventDocument.save().catch(err => {

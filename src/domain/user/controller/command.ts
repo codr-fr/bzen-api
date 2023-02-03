@@ -19,7 +19,7 @@ export const registerUser = async (req: Request, res: Response, next: NextFuncti
 export const updateUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const command = new UpdateUserCommand({
-            uuid: req.auth?.id,
+            userId: req.auth?.id,
             username: req.body.username
         })
         await command.validate()
