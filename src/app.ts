@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken'
 import { cors } from './middleware/cors'
 import morgan from 'morgan'
 import fs from 'fs'
+import compression from 'compression'
 
 const app = express()
 
@@ -14,6 +15,7 @@ app.use((req, res, next) => {
   next()
 })
 */
+app.use(compression())
 
 app.use(
   morgan('dev', {
