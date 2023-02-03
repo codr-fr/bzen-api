@@ -7,7 +7,9 @@ import { USER_UPDATED_EVENT } from '../event/userUpdatedEvent'
 
 export const findAllUsers = async (): Promise<UserAggregator[]> => {
   await db()
-  const events = await Event.find({ name: { $in: [USER_REGISTRED_EVENT, USER_UPDATED_EVENT] } }).exec()
+  const events = await Event.find({
+    name: { $in: [USER_REGISTRED_EVENT, USER_UPDATED_EVENT] }
+  }).exec()
   return new UsersAggregator().applyEvents(events).users
 }
 

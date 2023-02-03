@@ -1,26 +1,10 @@
 import { v4 } from 'uuid'
 import { AccountAggregator } from '../../../domain/account/aggregator/accountAggregator'
+import { AccountAttachedEvent, Role } from '../../../domain/account/event/accountAttachedEvent'
 import { AccountCreatedEvent } from '../../../domain/account/event/accountCreatedEvent'
 import { AccountCreditedEvent } from '../../../domain/account/event/accountCreditedEvent'
 import { AccountDebitedEvent } from '../../../domain/account/event/accountDebitedEvent'
-
-/*
-case ACCOUNT_CREATED_EVENT:
-    this.applyCreateAccountEvent(<AccountCreatedEvent>event)
-    break
-
-case ACCOUNT_CREDITED_EVENT:
-    this.applyCreditAccountEvent(<AccountCreditedEvent>event)
-    break
-
-case ACCOUNT_DEBITED_EVENT:
-    this.applyDebitAccountEvent(<AccountDebitedEvent>event)
-    break
-
-case ACCOUNT_ATTACHED_EVENT:
-    this.applyAttachAccountEvent(<AccountAttachedEvent>event)
-    break
-*/
+import { AccountDetachedEvent } from '../../../domain/account/event/accountDettachedEvent'
 
 describe('AccountAggregator', () => {
   let accountId: string
@@ -72,5 +56,35 @@ describe('AccountAggregator', () => {
 
     expect(aggreagator.currentBalance).toStrictEqual(1040)
     expect(aggreagator.estimatedBalance).toStrictEqual(0)
+  })
+
+  test('Attach account to user', () => {
+    const userIdA = v4()
+    const userIdB = v4()
+
+    aggreagator.applyEvents([
+      new AccountCreatedEvent(accountId, 100),
+      new AccountAttachedEvent(accountId, userIdA, Role.Owner),
+      new AccountAttachedEvent(accountId, userIdB, Role.Reader)
+    ])
+
+    expect(Object.keys(aggreagator.permissions).length).toStrictEqual(2)
+    expect(aggreagator.permissions[userIdA]).toStrictEqual('OWNER')
+    expect(aggreagator.permissions[userIdB]).toStrictEqual('READER')
+  })
+
+  test('Detach account to user', () => {
+    const userIdA = v4()
+    const userIdB = v4()
+
+    aggreagator.applyEvents([
+      new AccountCreatedEvent(accountId, 100),
+      new AccountAttachedEvent(accountId, userIdA, Role.Owner),
+      new AccountAttachedEvent(accountId, userIdB, Role.Reader),
+      new AccountDetachedEvent(accountId, userIdB)
+    ])
+
+    expect(Object.keys(aggreagator.permissions).length).toStrictEqual(1)
+    expect(aggreagator.permissions[userIdA]).toStrictEqual('OWNER')
   })
 })

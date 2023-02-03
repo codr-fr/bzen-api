@@ -6,7 +6,16 @@ dotenvExpand.expand(env)
 
 import http from 'http'
 import app from './app'
-import { getAccount, createAccount, creditAccount, debitAccount, transferBetweenAccounts, attachAccountToUser, getUserAccounts } from './domain/account/controller'
+import {
+  getAccount,
+  createAccount,
+  creditAccount,
+  debitAccount,
+  transferBetweenAccounts,
+  attachAccountToUser,
+  getUserAccounts,
+  detachAccountToUser
+} from './domain/account/controller'
 import { registerUser, updateUser, loginUser } from './domain/user/controller'
 import { errorHandler } from './middleware/error'
 import { successHandler } from './middleware/success'
@@ -21,6 +30,7 @@ app.post('/api/account/credit', creditAccount)
 app.post('/api/account/debit', debitAccount)
 app.post('/api/account/transfer', transferBetweenAccounts)
 app.post('/api/account/attach', attachAccountToUser)
+app.post('/api/account/detach', detachAccountToUser)
 
 app.post('/api/user/register', registerUser)
 app.post('/api/user/login', loginUser)

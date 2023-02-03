@@ -1,9 +1,10 @@
 import { AbstractAggregator } from '../../../interface/aggregator'
 import { IEvent } from '../../../interface/event'
-import { AccountAttachedEvent, ACCOUNT_ATTACHED_EVENT, Role } from '../event/accountAttachedEvent'
+import { ACCOUNT_ATTACHED_EVENT, AccountAttachedEvent, Role } from '../event/accountAttachedEvent'
 import { ACCOUNT_CREATED_EVENT, AccountCreatedEvent } from '../event/accountCreatedEvent'
 import { ACCOUNT_CREDITED_EVENT, AccountCreditedEvent } from '../event/accountCreditedEvent'
 import { ACCOUNT_DEBITED_EVENT, AccountDebitedEvent } from '../event/accountDebitedEvent'
+import { ACCOUNT_DETACHED_EVENT, AccountDetachedEvent } from '../event/accountDettachedEvent'
 
 export class AccountAggregator extends AbstractAggregator {
   readonly id: string
@@ -35,6 +36,10 @@ export class AccountAggregator extends AbstractAggregator {
       case ACCOUNT_ATTACHED_EVENT:
         this.applyAttachAccountEvent(<AccountAttachedEvent>event)
         break
+
+      case ACCOUNT_DETACHED_EVENT:
+        this.applyDetachAccountEvent(<AccountDetachedEvent>event)
+        break
     }
     return this
   }
@@ -53,5 +58,9 @@ export class AccountAggregator extends AbstractAggregator {
 
   private applyAttachAccountEvent(event: AccountAttachedEvent) {
     this.permissions[event.payload.userId] = event.payload.role
+  }
+
+  private applyDetachAccountEvent(event: AccountDetachedEvent) {
+    delete this.permissions[event.payload.userId]
   }
 }

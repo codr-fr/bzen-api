@@ -4,11 +4,13 @@ import { AttachAccountCommand } from '../command/attachAccountCommand'
 import { CreateAccountCommand } from '../command/createAccountCommand'
 import { CreditAccountCommand } from '../command/creditAccountCommand'
 import { DebitAccountCommand } from '../command/debitAccountCommand'
+import { DetachAccountCommand } from '../command/detachAccountCommand'
 import { TransferCommand } from '../command/transferCommand'
 import { attachAccountCommandHandler } from '../commandHandler/attachAccountCommandHandler'
 import { createAccountCommandHandler } from '../commandHandler/createAccountCommandHandler'
 import { creditAccountCommandHandler } from '../commandHandler/creditAccountCommandHandler'
 import { debitAccountCommandHandler } from '../commandHandler/debitAccountCommandHandler'
+import { detachAccountCommandHandler } from '../commandHandler/detachAccountCommandHandler'
 import { transferCommandHandler } from '../commandHandler/transferCommandHandler'
 
 export const createAccount = async (req: Request, res: Response, next: NextFunction) => {
@@ -58,6 +60,16 @@ export const attachAccountToUser = async (req: Request, res: Response, next: Nex
   try {
     const command = new AttachAccountCommand(req.body)
     await attachAccountCommandHandler(command)
+    next()
+  } catch (error: unknown) {
+    next(error)
+  }
+}
+
+export const detachAccountToUser = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const command = new DetachAccountCommand(req.body)
+    await detachAccountCommandHandler(command)
     next()
   } catch (error: unknown) {
     next(error)

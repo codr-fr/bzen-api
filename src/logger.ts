@@ -1,6 +1,9 @@
 import winston from 'winston'
 
-const transports = [new winston.transports.File({ filename: 'logs/console.error.log', level: 'error' }), new winston.transports.File({ filename: 'logs/console.log' })]
+const transports = [
+  new winston.transports.File({ filename: 'logs/console.error.log', level: 'error' }),
+  new winston.transports.File({ filename: 'logs/console.log' })
+]
 
 const logger = winston.createLogger({
   levels: winston.config.syslog.levels,
