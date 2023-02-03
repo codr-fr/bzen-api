@@ -9,8 +9,8 @@ export const attachAccountCommandHandler = async (command: AttachAccountCommand)
   const event = new AccountAttachedEvent(command.accountId, command.userId, command.role)
   const eventDocument = new Event(event)
 
-  await eventDocument.save().catch((err) => {
-    console.error({ err })
+  await eventDocument.save().catch(() => {
+    //console.error({ err })
     throw new Error('Error!')
   })
 }

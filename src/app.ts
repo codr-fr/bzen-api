@@ -2,8 +2,41 @@ import express, { json, urlencoded } from 'express'
 import { expressjwt } from 'express-jwt'
 import jwt from 'jsonwebtoken'
 import { cors } from './middleware/cors'
+import morgan from 'morgan'
+import fs from 'fs'
 
 const app = express()
+
+// setup the logger
+/*
+app.use((req, res, next) => {
+  req.id = v4()
+  next()
+})
+*/
+
+app.use(
+  morgan('dev', {
+    skip: function (req, res) {
+      return res.statusCode < 400
+    }
+  })
+)
+
+app.use(
+  morgan('combined', {
+    stream: fs.createWriteStream('./logs/access.log', { flags: 'a' })
+  })
+)
+
+app.use(
+  morgan('combined', {
+    stream: fs.createWriteStream('./logs/error.log', { flags: 'a' }),
+    skip: function (req, res) {
+      return res.statusCode < 400
+    }
+  })
+)
 
 app.use(json()) // for application/json
 app.use(urlencoded({ extended: true })) //for application/xwww-

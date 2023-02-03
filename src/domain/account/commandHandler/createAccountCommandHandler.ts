@@ -12,8 +12,8 @@ export const createAccountCommandHandler = async (command: CreateAccountCommand)
   const eventCreated = new AccountCreatedEvent(uuid, command.initialBalance)
   const eventAttached = new AccountAttachedEvent(uuid, command.userId, Role.Owner)
 
-  Event.insertMany([eventCreated, eventAttached]).catch((err) => {
-    console.error({ err })
+  Event.insertMany([eventCreated, eventAttached]).catch(() => {
+    //console.error({ err })
     throw new Error('Error!')
   })
 }

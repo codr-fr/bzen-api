@@ -16,8 +16,8 @@ export const registerUserCommandHandler = async (command: RegisterUserCommand) =
   const event = new UserRegistredEvent(uuid, command.username, hash)
   const eventDocument = new Event(event)
 
-  await eventDocument.save().catch((err) => {
-    console.error({ err })
+  await eventDocument.save().catch(() => {
+    //console.error({ err })
     throw new Error('Error!')
   })
 }

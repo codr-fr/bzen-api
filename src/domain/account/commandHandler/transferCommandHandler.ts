@@ -10,8 +10,8 @@ export const transferCommandHandler = async (command: TransferCommand) => {
   const eventDebited = new AccountDebitedEvent(command.fromAccountId, command.amount)
   const eventCredited = new AccountCreditedEvent(command.toAccountId, command.amount)
 
-  Event.insertMany([eventDebited, eventCredited]).catch((err) => {
-    console.error({ err })
+  Event.insertMany([eventDebited, eventCredited]).catch(() => {
+    //console.error({ err })
     throw new Error('Error!')
   })
 }

@@ -12,23 +12,20 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
 
   try {
     command = new LoginUserCommand(req.body)
-  } catch (error: unknown) {
-    next(error)
-    return
+  } catch (error) {
+    return next(error)
   }
 
   const user = await findUserByUsername(command.username)
 
   if (user === undefined) {
-    console.error(`user not found`)
-    next(new Error(`Can't login`))
-    return
+    //console.error(`user not found`)
+    return next(new Error(`Can't login`))
   }
 
   if (!bcrypt.compareSync(command.password, user.password)) {
-    console.error(`password do no match`)
-    next(new Error(`Can't login`))
-    return
+    //console.error(`password do no match`)
+    return next(new Error(`Can't login`))
   }
 
   const tokenOptions: jwt.SignOptions = {

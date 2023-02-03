@@ -9,8 +9,8 @@ export const debitAccountCommandHandler = async (command: DebitAccountCommand) =
   const event = new AccountDebitedEvent(command.accountId, command.amount)
   const eventDocument = new Event(event)
 
-  await eventDocument.save().catch((err) => {
-    console.error({ err })
+  await eventDocument.save().catch(() => {
+    //console.error({ err })
     throw new Error('Error!')
   })
 }

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 
-export const success = (_: Request, response: Response) => {
-  response.status(200).send({
+export const success = (request: Request, response: Response) => {
+  response.status(200).json({
     message: 'It worked !'
   })
 }

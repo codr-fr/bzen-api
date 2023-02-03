@@ -36,23 +36,22 @@ app.set('port', port)
 // Create and configure server
 const server = http.createServer(app)
 
-/*
 server.on('listening', () => {
-  const address = server.address()
-  const bind = typeof address === 'string' ? 'pipe ' + address : 'port ' + port
-  console.log('Listening on ' + bind)
+  return
+  //const address = server.address()
+  //const bind = typeof address === 'string' ? 'pipe ' + address : 'port ' + port
+  //console.log('Listening on ' + bind)
 })
-*/
 
 server.listen(port)
 
-/*
 // Handle unhandled promise rejections and exceptions
-process.on('unhandledRejection', (err: Error) => {
-  console.log(err)
+process.on('unhandledRejection', () => {
+  return
+  //console.log(err)
 })
 
-process.on('uncaughtException', (err: Error) => {
-  console.log(err.message)
+process.on('uncaughtException', () => {
+  return
+  //console.log(err.message)
 })
-*/

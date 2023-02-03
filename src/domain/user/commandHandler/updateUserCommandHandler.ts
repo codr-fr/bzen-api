@@ -9,8 +9,8 @@ export const updateUserCommandHandler = async (command: UpdateUserCommand) => {
   const event = new UserUpdatedEvent(command.userId, command.username)
   const eventDocument = new Event(event)
 
-  await eventDocument.save().catch((err) => {
-    console.error({ err })
+  await eventDocument.save().catch(() => {
+    //console.error({ err })
     throw new Error('Error!')
   })
 }
