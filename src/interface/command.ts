@@ -1,4 +1,5 @@
 import Joi from 'joi'
+import logger from '../logger'
 
 export interface ICommand {
   getSchema(): Joi.ObjectSchema
@@ -17,6 +18,7 @@ export abstract class AbstractCommand implements ICommand {
     const validationResult: Joi.ValidationResult = this.getSchema().validate(payload)
 
     if (validationResult?.error) {
+      logger.info(`${this.constructor.name} validateSchema error:  ${validationResult.error?.message}`)
       throw new Error(`${validationResult.error?.message}`)
     }
   }

@@ -1,11 +1,14 @@
 import mongoose, { Mongoose } from 'mongoose'
+import logger from '../logger'
 
 mongoose.set('strictQuery', false)
 
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://username:password@127.0.0.1/database'
 
 if (!MONGO_URI) {
-  throw new Error('Please define the MONGO_URI environment variable inside .env')
+  const message = 'Please define the MONGO_URI environment variable inside .env'
+  logger.crit(message)
+  throw new Error(message)
 }
 
 declare let global: typeof globalThis & {

@@ -8,8 +8,8 @@ import http from 'http'
 import app from './app'
 import { getAccount, createAccount, creditAccount, debitAccount, transferBetweenAccounts, attachAccountToUser, getUserAccounts } from './domain/account/controller'
 import { registerUser, updateUser, loginUser } from './domain/user/controller'
-import { error } from './middleware/error'
-import { success } from './middleware/success'
+import { errorHandler } from './middleware/error'
+import { successHandler } from './middleware/success'
 import logger from './logger'
 
 // App routes
@@ -27,8 +27,8 @@ app.post('/api/user/login', loginUser)
 app.post('/api/user/edit', updateUser)
 
 // Define after all routes
-app.use(success)
-app.use(error)
+app.use(successHandler)
+app.use(errorHandler)
 
 // Server port
 const port = process.env.API_PORT || '3000'
@@ -41,21 +41,16 @@ server.on('listening', () => {
   const address = server.address()
   const bind = typeof address === 'string' ? 'pipe ' + address : 'port ' + port
   logger.info(`Listening on ${bind}`)
-  logger.alert('alert')
-  logger.error('error')
-  logger.crit('crit')
-  logger.warn('warn')
 })
 
 server.listen(port)
 
 // Handle unhandled promise rejections and exceptions
-process.on('unhandledRejection', () => {
-  return
-  //console.log(err)
+process.on('unhandledRejection', (err) => {
+  logger.crit(`Unhandled Rejection: ${err}`)
 })
 
-process.on('uncaughtException', () => {
-  return
-  //console.log(err.message)
+process.on('uncaughtException', (err, origin) => {
+  logger.crit(`Uncaught exception: ${err}`)
+  logger.crit(`Exception origin: ${origin}`)
 })
