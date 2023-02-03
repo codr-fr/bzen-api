@@ -1,20 +1,20 @@
-import { AbstractAggregator } from "../../../interface/aggregator"
-import { IEvent } from "../../../interface/event"
-import { UserAggregator } from "./userAggregator"
+import { AbstractAggregator } from '../../../interface/aggregator'
+import { IEvent } from '../../../interface/event'
+import { UserAggregator } from './userAggregator'
 
 export class UsersAggregator extends AbstractAggregator {
-    users: UserAggregator[] = []
+  users: UserAggregator[] = []
 
-    applyEvent(event: IEvent): this {
-        let userAggregator = this.users.find(aggregator => aggregator.id === event.uuid)
+  applyEvent(event: IEvent): this {
+    let userAggregator = this.users.find((aggregator) => aggregator.id === event.uuid)
 
-        if(userAggregator === undefined) {
-            userAggregator = new UserAggregator(event.uuid)
-            this.users.push(userAggregator)
-        }
-
-        userAggregator.applyEvent(event)
-
-        return this
+    if (userAggregator === undefined) {
+      userAggregator = new UserAggregator(event.uuid)
+      this.users.push(userAggregator)
     }
+
+    userAggregator.applyEvent(event)
+
+    return this
+  }
 }
