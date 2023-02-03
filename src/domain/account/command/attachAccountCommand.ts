@@ -1,8 +1,8 @@
 import Joi from "joi"
-import { AbstractCommand, ICommandPayload } from "../../../interface/command"
+import { AbstractCommand } from "../../../interface/command"
 import { Role } from "../event/accountAttachedEvent"
 
-interface Payload extends ICommandPayload {
+interface Payload {
     accountId: string
     userId: string
     role: Role

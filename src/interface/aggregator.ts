@@ -15,6 +15,7 @@ export abstract class AbstractAggregator implements IAggregator {
     }
 
     toObject(filters?: string[]): object {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const result: {[key: string]: any} = {...this}
         filters?.forEach(f => delete result[f])
         return result

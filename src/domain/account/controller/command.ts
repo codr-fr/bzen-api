@@ -19,7 +19,7 @@ export const createAccount = async (req: Request, res: Response, next: NextFunct
         })
         await createAccountCommandHandler(command)
         next()
-    } catch (error: any) {
+    } catch (error: unknown) {
         next(error)
     }
 }
@@ -29,7 +29,7 @@ export const creditAccount = async (req: Request, res: Response, next: NextFunct
         const command = new CreditAccountCommand(req.body)
         await creditAccountCommandHandler(command)
         next()
-    } catch (error: any) {
+    } catch (error: unknown) {
         next(error)
     }
 }
@@ -39,7 +39,7 @@ export const debitAccount = async (req: Request, res: Response, next: NextFuncti
         const command = new DebitAccountCommand(req.body)
         await debitAccountCommandHandler(command)
         next()
-    } catch (error: any) {
+    } catch (error: unknown) {
         next(error)
     }
 }
@@ -49,7 +49,7 @@ export const transferBetweenAccounts = async (req: Request, res: Response, next:
         const command = new TransferCommand(req.body)
         await transferCommandHandler(command)
         next()
-    } catch (error: any) {
+    } catch (error: unknown) {
         next(error)
     }
 }
@@ -59,7 +59,7 @@ export const attachAccountToUser = async (req: Request, res: Response, next: Nex
         const command = new AttachAccountCommand(req.body)
         await attachAccountCommandHandler(command)
         next()
-    } catch (error: any) {
+    } catch (error: unknown) {
         next(error)
     }
 }

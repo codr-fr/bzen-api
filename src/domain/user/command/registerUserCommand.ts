@@ -1,8 +1,8 @@
 import Joi from "joi"
-import { AbstractCommand, ICommandPayload } from "../../../interface/command"
+import { AbstractCommand } from "../../../interface/command"
 import { validateUserNameIsAvailable } from "../validators"
 
-interface Payload extends ICommandPayload {
+interface Payload {
     username: string
     password: string
 }

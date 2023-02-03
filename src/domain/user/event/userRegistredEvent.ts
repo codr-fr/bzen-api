@@ -1,5 +1,4 @@
 import { IEvent } from "../../../interface/event"
-import {v4} from "uuid"
 
 export const USER_REGISTRED_EVENT = "USER_REGISTRED_EVENT"
 

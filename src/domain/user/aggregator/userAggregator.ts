@@ -5,8 +5,8 @@ import { UserUpdatedEvent, USER_UPDATED_EVENT } from "../event/userUpdatedEvent"
 
 export class UserAggregator extends AbstractAggregator {
     readonly id: string
-    username: string = ''
-    password: string = ''
+    username = ''
+    password = ''
 
     constructor(id: string) {
         super()

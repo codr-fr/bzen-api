@@ -12,7 +12,7 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
 
     try {
         command = new LoginUserCommand(req.body)
-    } catch (error: any) {
+    } catch (error: unknown) {
         next(error)
         return
     }

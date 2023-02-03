@@ -1,7 +1,7 @@
 import Joi from "joi"
-import { AbstractCommand, ICommandPayload } from "../../../interface/command"
+import { AbstractCommand } from "../../../interface/command"
 
-interface Payload extends ICommandPayload {
+interface Payload {
     fromAccountId: string
     toAccountId: string
     amount: number

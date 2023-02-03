@@ -11,7 +11,7 @@ export const registerUser = async (req: Request, res: Response, next: NextFuncti
         await command.validate()
         await registerUserCommandHandler(command)
         next()
-    } catch (error: any) {
+    } catch (error: unknown) {
         next(error)
     }
 }
@@ -25,7 +25,7 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
         await command.validate()
         await updateUserCommandHandler(command)
         next()
-    } catch (error: any) {
+    } catch (error: unknown) {
         next(error)
     }
 }

@@ -45,11 +45,11 @@ server.on('listening', () => {
 server.listen(port)
 
 // Handle unhandled promise rejections and exceptions
-process.on("unhandledRejection", (err: any) => {
+process.on("unhandledRejection", (err: Error) => {
     console.log(err)
 })
 
-process.on("uncaughtException", (err: any) => {
+process.on("uncaughtException", (err: Error) => {
     console.log(err.message)
 })
 

@@ -1,9 +1,10 @@
 {
   "scripts": {
-    "dev": "concurrently \"tsc -w -p tsconfig.dev.json\" \"nodemon -q dist/index.js\" \"jest --watch\" ",
+    "dev": "concurrently \"tsc -w -p tsconfig.dev.json\" \"nodemon -q dist/index.js\" \"jest --watch\" \"esw . --ext .ts --color --watch\"",
     "build": "tsc",
     "start": "node dist/index.js",
-    "test": "jest"
+    "test": "jest",
+    "lint": "esw . --ext .ts --color --watch"
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.2",
@@ -11,7 +12,11 @@
     "@types/bcrypt": "^5.0.0",
     "@types/express": "^4.17.16",
     "@types/jest": "^29.4.0",
+    "@typescript-eslint/eslint-plugin": "^5.50.0",
+    "@typescript-eslint/parser": "^5.50.0",
     "concurrently": "^7.6.0",
+    "eslint": "^8.33.0",
+    "eslint-watch": "^8.0.0",
     "jest": "^29.4.1",
     "mockingoose": "^2.16.2",
     "nodemon": "^2.0.20",

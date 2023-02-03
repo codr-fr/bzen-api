@@ -3,9 +3,6 @@ import { AccountAggregator } from "../../../domain/account/aggregator/accountAgg
 import { AccountCreatedEvent } from "../../../domain/account/event/accountCreatedEvent"
 import { AccountCreditedEvent } from "../../../domain/account/event/accountCreditedEvent"
 import { AccountDebitedEvent } from "../../../domain/account/event/accountDebitedEvent"
-import { UserAggregator } from "../../../domain/user/aggregator/userAggregator"
-import { UserRegistredEvent } from "../../../domain/user/event/userRegistredEvent"
-import { UserUpdatedEvent } from "../../../domain/user/event/userUpdatedEvent"
 
 /*
 case ACCOUNT_CREATED_EVENT:

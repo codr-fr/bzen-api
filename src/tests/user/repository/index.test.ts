@@ -1,8 +1,8 @@
-// Must be like this or it fails on runtime
-const mockingoose = require("mockingoose");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const mockingoose = require("mockingoose") 
 
-import { findAllUsers } from '../../../domain/user/repository';
-import { Event } from '../../../model/event';
+import { findAllUsers } from '../../../domain/user/repository'
+import { Event } from '../../../model/event'
 
 // TBD if usefull
 describe.skip('User Repository', () => {
@@ -24,7 +24,7 @@ describe.skip('User Repository', () => {
           },
           year: 2022,
         }
-      ], 'find');
+      ], 'find')
       
 
     test("Should return all users registred", () => {
