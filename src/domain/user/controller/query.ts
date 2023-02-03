@@ -4,9 +4,12 @@ import db from '../../../database/mongoose'
 import jwt from 'jsonwebtoken'
 import { LoginUserCommand } from '../command/loginUserCommand'
 import { findUserByUsername } from '../repository'
+import logger from '../../../logger'
 
 export const loginUser = async (req: Request, res: Response, next: NextFunction) => {
   await db()
+
+  logger.info('loginuser')
 
   let command: LoginUserCommand
 

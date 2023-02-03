@@ -10,6 +10,7 @@ import { getAccount, createAccount, creditAccount, debitAccount, transferBetween
 import { registerUser, updateUser, loginUser } from './domain/user/controller'
 import { error } from './middleware/error'
 import { success } from './middleware/success'
+import logger from './logger'
 
 // App routes
 app.get('/api/accounts/', getUserAccounts)
@@ -37,10 +38,13 @@ app.set('port', port)
 const server = http.createServer(app)
 
 server.on('listening', () => {
-  return
-  //const address = server.address()
-  //const bind = typeof address === 'string' ? 'pipe ' + address : 'port ' + port
-  //console.log('Listening on ' + bind)
+  const address = server.address()
+  const bind = typeof address === 'string' ? 'pipe ' + address : 'port ' + port
+  logger.info(`Listening on ${bind}`)
+  logger.alert('alert')
+  logger.error('error')
+  logger.crit('crit')
+  logger.warn('warn')
 })
 
 server.listen(port)
