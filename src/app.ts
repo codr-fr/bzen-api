@@ -5,6 +5,8 @@ import { cors } from './middleware/cors'
 import morgan from 'morgan'
 import fs from 'fs'
 import compression from 'compression'
+import helmet from 'helmet'
+import rateLimiterRedisMiddleware from './middleware/rateLimiterRedis'
 
 const app = express()
 
@@ -15,7 +17,9 @@ app.use((req, res, next) => {
   next()
 })
 */
+app.use(rateLimiterRedisMiddleware)
 app.use(compression())
+app.use(helmet())
 
 app.use(
   morgan('dev', {
