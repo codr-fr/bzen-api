@@ -1,5 +1,6 @@
 import { AbstractAggregator } from "../../../interface/aggregator"
 import { IEvent } from "../../../interface/event"
+import { AccountAttachedEvent, ACCOUNT_ATTACHED_EVENT, Role } from "../event/accountAttachedEvent"
 import { ACCOUNT_CREATED_EVENT, AccountCreatedEvent } from "../event/accountCreatedEvent"
 import { ACCOUNT_CREDITED_EVENT, AccountCreditedEvent } from "../event/accountCreditedEvent"
 import { ACCOUNT_DEBITED_EVENT, AccountDebitedEvent } from "../event/accountDebitedEvent"
@@ -8,6 +9,7 @@ export class AccountAggregator extends AbstractAggregator {
     readonly id: string
     currentBalance: number
     estimatedBalance: number
+    permissions: {[key: string]: Role} = {}
 
     constructor(id: string, currentBalance?: number, estimatedBalance?: number) {
         super()
@@ -29,6 +31,10 @@ export class AccountAggregator extends AbstractAggregator {
             case ACCOUNT_DEBITED_EVENT:
                 this.applyDebitAccountEvent(<AccountDebitedEvent>event)
                 break
+
+            case ACCOUNT_ATTACHED_EVENT:
+                this.applyAttachAccountEvent(<AccountAttachedEvent>event)
+                break
         }
         return this
     }
@@ -43,5 +49,9 @@ export class AccountAggregator extends AbstractAggregator {
 
     private applyDebitAccountEvent(event: AccountDebitedEvent) {
         this.currentBalance -= event.payload.amount
+    }
+
+    private applyAttachAccountEvent(event: AccountAttachedEvent) {
+        this.permissions[event.payload.userId] = event.payload.role
     }
 }

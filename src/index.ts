@@ -6,13 +6,15 @@ dotenvExpand.expand(env)
 
 import http from 'http'
 import app from './app'
-import { getAccount, createAccount, creditAccount, debitAccount, transferBetweenAccounts, attachAccountToUser } from './domain/account/controller'
+import { getAccount, createAccount, creditAccount, debitAccount, transferBetweenAccounts, attachAccountToUser, getUserAccounts } from './domain/account/controller'
 import { registerUser, updateUser, loginUser } from './domain/user/controller'
 import { error } from './middleware/error'
 import { success } from './middleware/success'
 
 // App routes
-app.get('/api/account/:uuid', getAccount)
+app.get('/api/accounts/', getUserAccounts)
+
+app.get('/api/account/:accountId', getAccount)
 app.post('/api/account', createAccount)
 app.post('/api/account/credit', creditAccount)
 app.post('/api/account/debit', debitAccount)
