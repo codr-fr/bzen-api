@@ -1,6 +1,7 @@
 import Joi from 'joi'
 import { AbstractCommand } from '../../../interface/command'
-import { Role } from '../event/accountAttachedEvent'
+import { saveEvent } from '../../../model/event'
+import { AccountAttachedEvent, Role } from '../event/accountAttachedEvent'
 
 interface Payload {
   accountId: string
@@ -26,5 +27,10 @@ export class AttachAccountCommand extends AbstractCommand {
       userId: Joi.string().uuid().required(),
       role: Joi.string().required()
     })
+  }
+
+  async handle(): Promise<void> {
+    const event = new AccountAttachedEvent(this.accountId, this.userId, this.role)
+    await saveEvent(event)
   }
 }

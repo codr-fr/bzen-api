@@ -1,5 +1,7 @@
 import Joi from 'joi'
 import { AbstractCommand } from '../../../interface/command'
+import { saveEvent } from '../../../model/event'
+import { AccountCreditedEvent } from '../event/accountCreditedEvent'
 
 interface Payload {
   accountId: string
@@ -21,5 +23,10 @@ export class CreditAccountCommand extends AbstractCommand {
       accountId: Joi.string().uuid().required(),
       amount: Joi.number().positive().required()
     })
+  }
+
+  async handle(): Promise<void> {
+    const event = new AccountCreditedEvent(this.accountId, this.amount)
+    await saveEvent(event)
   }
 }

@@ -9,8 +9,6 @@ import logger from '../../../logger'
 export const loginUser = async (req: Request, res: Response, next: NextFunction) => {
   await db()
 
-  logger.info('loginuser')
-
   let command: LoginUserCommand
 
   try {
@@ -22,12 +20,12 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
   const user = await findUserByUsername(command.username)
 
   if (user === undefined) {
-    //console.error(`user not found`)
+    logger.info(`user not found`)
     return next(new Error(`Can't login`))
   }
 
   if (!bcrypt.compareSync(command.password, user.password)) {
-    //console.error(`password do no match`)
+    logger.info(`password do no match`)
     return next(new Error(`Can't login`))
   }
 

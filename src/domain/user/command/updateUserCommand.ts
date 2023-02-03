@@ -1,5 +1,7 @@
 import Joi from 'joi'
 import { AbstractCommand } from '../../../interface/command'
+import { saveEvent } from '../../../model/event'
+import { UserUpdatedEvent } from '../event/userUpdatedEvent'
 import { validateUserNameIsAvailable } from '../validators'
 
 interface Payload {
@@ -26,5 +28,10 @@ export class UpdateUserCommand extends AbstractCommand {
 
   async validate(): Promise<void> {
     await validateUserNameIsAvailable(this.username)
+  }
+
+  async handle(): Promise<void> {
+    const event = new UserUpdatedEvent(this.userId, this.username)
+    await saveEvent(event)
   }
 }

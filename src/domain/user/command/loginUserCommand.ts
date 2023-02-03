@@ -22,4 +22,8 @@ export class LoginUserCommand extends AbstractCommand {
       password: Joi.string().required()
     })
   }
+
+  handle(): void {
+    return
+  }
 }

@@ -1,6 +1,10 @@
 import Joi from 'joi'
+import { v4 } from 'uuid'
+import bcrypt from 'bcrypt'
 import { AbstractCommand } from '../../../interface/command'
 import { validateUserNameIsAvailable } from '../validators'
+import { saveEvent } from '../../../model/event'
+import { UserRegistredEvent } from '../event/userRegistredEvent'
 
 interface Payload {
   username: string
@@ -26,5 +30,14 @@ export class RegisterUserCommand extends AbstractCommand {
 
   async validate(): Promise<void> {
     await validateUserNameIsAvailable(this.username)
+  }
+
+  async handle(): Promise<void> {
+    const uuid = v4()
+    const saltRounds = process.env.BCRYPT_SALT_ROUND || '11'
+    const salt = bcrypt.genSaltSync(parseInt(saltRounds))
+    const hash = bcrypt.hashSync(this.password, salt)
+
+    await saveEvent(new UserRegistredEvent(uuid, this.username, hash))
   }
 }

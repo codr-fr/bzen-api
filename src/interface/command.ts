@@ -3,12 +3,14 @@ import logger from '../logger'
 
 export interface ICommand {
   getSchema(): Joi.ObjectSchema
+  handle(): void
   validateSchema(payload: object): void
   validate(): void
 }
 
 export abstract class AbstractCommand implements ICommand {
   abstract getSchema(): Joi.ObjectSchema
+  abstract handle(): void
 
   constructor(payload: object) {
     this.validateSchema(payload)
