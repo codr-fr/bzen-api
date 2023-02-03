@@ -1,11 +1,11 @@
 import winston from 'winston'
 
-const transports = [new winston.transports.File({ filename: 'logs/w-error.log', level: 'error' }), new winston.transports.File({ filename: 'logs/w-combined.log' })]
+const transports = [new winston.transports.File({ filename: 'logs/console.error.log', level: 'error' }), new winston.transports.File({ filename: 'logs/console.log' })]
 
 const logger = winston.createLogger({
   levels: winston.config.syslog.levels,
-  format: winston.format.json(),
-  defaultMeta: { service: 'app' },
+  //format: winston.format.json(),
+  //defaultMeta: { service: 'app' },
   transports
 })
 
