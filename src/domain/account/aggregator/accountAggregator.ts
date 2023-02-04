@@ -24,6 +24,8 @@ export class AccountAggregator extends AbstractAggregator {
   }
 
   applyEvent(event: IEvent): this {
+    super.applyEvent(event)
+
     switch (event.name) {
       case ACCOUNT_CREATED_EVENT:
         this.applyCreateAccountEvent(<AccountCreatedEvent>event)
@@ -44,10 +46,8 @@ export class AccountAggregator extends AbstractAggregator {
       case ACCOUNT_DETACHED_EVENT:
         this.applyDetachAccountEvent(<AccountDetachedEvent>event)
         break
-
-      default:
-        throw new Error(`${event.name} not supported by ${this.constructor.name}`)
     }
+
     return this
   }
 

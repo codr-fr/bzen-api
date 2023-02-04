@@ -13,6 +13,8 @@ export class UserAggregator extends AbstractAggregator {
   }
 
   applyEvent(event: IEvent): this {
+    super.applyEvent(event)
+
     switch (event.name) {
       case USER_REGISTRED_EVENT:
         this.applyRegisterUserEvent(<UserRegistredEvent>event)
@@ -20,9 +22,8 @@ export class UserAggregator extends AbstractAggregator {
       case USER_UPDATED_EVENT:
         this.applyUpdateUserEvent(<UserUpdatedEvent>event)
         break
-      default:
-        throw new Error(`${event.name} not supported by ${this.constructor.name}`)
     }
+
     return this
   }
 

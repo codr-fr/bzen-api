@@ -10,11 +10,19 @@ export interface IAggregator {
 
 export abstract class AbstractAggregator implements IAggregator {
   readonly id: string
-  abstract applyEvent(event: IEvent): this
+
   abstract supportedEvents(): string[]
 
   constructor(id: string) {
     this.id = id
+  }
+
+  applyEvent(event: IEvent): this {
+    if (!this.supportedEvents().includes(event.name)) {
+      throw new Error(`${event.name} not supported by ${this.constructor.name}`)
+    }
+
+    return this
   }
 
   applyEvents(events: IEvent[]): this {
