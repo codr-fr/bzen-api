@@ -28,7 +28,7 @@ export class AccountAggregator extends AbstractAggregator {
     ]
   }
 
-  applyEvent(event: IEvent): this {
+  applyEvent(event: IEvent): void {
     super.applyEvent(event)
 
     switch (event.name) {
@@ -52,8 +52,6 @@ export class AccountAggregator extends AbstractAggregator {
         this.applyDetachAccountEvent(<AccountDetachedEvent>event)
         break
     }
-
-    return this
   }
 
   private applyCreateAccountEvent(event: AccountCreatedEvent) {

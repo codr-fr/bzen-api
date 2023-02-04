@@ -6,7 +6,10 @@ import { AccountAggregator } from '../aggregator/accountAggregator'
 export const findAccount = async (accountId: string): Promise<AccountAggregator> => {
   await db()
   const events = await Event.find({ uuid: accountId }).exec()
-  return new AccountAggregator(accountId).applyEvents(events)
+  const aggregator = new AccountAggregator(accountId)
+  aggregator.applyEvents(events)
+
+  return aggregator
 }
 
 export const findAccountByUser = async (userId: string): Promise<AccountAggregator[]> => {
