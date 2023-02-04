@@ -30,7 +30,7 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
   }
 
   const tokenOptions: jwt.SignOptions = {
-    algorithm: <jwt.Algorithm>process.env.JWT_ALGORITH || 'HS256',
+    algorithm: <jwt.Algorithm>process.env.JWT_ALGORITHM || 'HS256',
     expiresIn: process.env.JWT_TTL || '1h'
   }
 
