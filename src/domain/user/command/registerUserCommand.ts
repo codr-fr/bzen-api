@@ -1,9 +1,9 @@
 import Joi from 'joi'
 import { v4 } from 'uuid'
 import bcrypt from 'bcrypt'
-import { AbstractCommand } from '../../../interface/command'
+import { AbstractCommand } from '../../../framework/command'
 import { validateUserNameIsAvailable } from '../validators'
-import { saveEvent } from '../../../model/event'
+import { saveEvent } from '../../../framework/event'
 import { UserRegistredEvent } from '../event/userRegistredEvent'
 
 interface Payload {

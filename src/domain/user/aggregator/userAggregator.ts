@@ -1,5 +1,5 @@
-import { AbstractAggregator } from '../../../interface/aggregator'
-import { IEvent } from '../../../interface/event'
+import { AbstractAggregator } from '../../../framework/aggregator'
+import { IEvent } from '../../../framework/event'
 import { UserRegistredEvent, USER_REGISTRED_EVENT } from '../event/userRegistredEvent'
 import { UserUpdatedEvent, USER_UPDATED_EVENT } from '../event/userUpdatedEvent'
 import userEvents from '../event'

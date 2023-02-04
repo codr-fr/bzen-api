@@ -1,5 +1,5 @@
 import Joi from 'joi'
-import logger from '../logger'
+import logger from './logger'
 
 export interface ICommand {
   getSchema(): Joi.ObjectSchema

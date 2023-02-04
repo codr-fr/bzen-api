@@ -1,5 +1,11 @@
 import { model, Schema } from 'mongoose'
-import { ISnapshot } from '../interface/snapshot'
+
+export interface ISnapshot {
+  date?: Date
+  uuid: string
+  name: string
+  snapshot: object
+}
 
 const snapshotSchema = new Schema<ISnapshot>({
   date: { type: Date, default: Date.now },

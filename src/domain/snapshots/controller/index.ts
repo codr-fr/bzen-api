@@ -1,17 +1,17 @@
 import { Request, Response } from 'express'
 import db from '../../../database/mongoose'
-import { IAggregator } from '../../../interface/aggregator'
-import { ISnapshot } from '../../../interface/snapshot'
-import { Snapshot } from '../../../model/snapshot'
-import { findAllAccounts } from '../../account/repository'
-import { findAllUsers } from '../../user/repository'
+import { IAggregator } from '../../../framework/aggregator'
+import { findAll } from '../../../framework/repository'
+import { ISnapshot, Snapshot } from '../../../framework/snapshot'
+import { AccountAggregator } from '../../account/aggregator/accountAggregator'
+import { UserAggregator } from '../../user/aggregator/userAggregator'
 
 export const resetSnapshots = async (req: Request, res: Response) => {
   await db()
 
   await Snapshot.deleteMany()
-  await generateSnapshots(await findAllUsers())
-  await generateSnapshots(await findAllAccounts())
+  await generateSnapshots(await findAll(UserAggregator))
+  await generateSnapshots(await findAll(AccountAggregator))
 
   res.status(200).json({})
 }

@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const mockingoose = require('mockingoose')
 
-import { Event } from '../../../model/event'
+import { Event } from '../../../framework/event'
 
 // TBD if usefull
 describe.skip('User Repository', () => {

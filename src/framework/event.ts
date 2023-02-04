@@ -1,7 +1,13 @@
 import { model, Schema } from 'mongoose'
 import db from '../database/mongoose'
-import { IEvent } from '../interface/event'
-import logger from '../logger'
+import logger from './logger'
+
+export interface IEvent {
+  date?: Date
+  uuid: string
+  name: string
+  payload: object
+}
 
 const eventSchema = new Schema<IEvent>({
   date: { type: Date, default: Date.now },

@@ -1,5 +1,5 @@
 import Joi from 'joi'
-import { AbstractCommand } from '../../../interface/command'
+import { AbstractCommand } from '../../../framework/command'
 
 interface Payload {
   username: string

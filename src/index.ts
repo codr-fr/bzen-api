@@ -19,7 +19,7 @@ import {
 import { registerUser, updateUser, loginUser } from './domain/user/controller'
 import { errorHandler } from './middleware/error'
 import { successHandler } from './middleware/success'
-import logger from './logger'
+import logger from './framework/logger'
 import { resetSnapshots } from './domain/snapshots/controller'
 
 // App routes

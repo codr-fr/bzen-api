@@ -1,6 +1,6 @@
 import Joi from 'joi'
-import { AbstractCommand } from '../../../interface/command'
-import { saveEvent } from '../../../model/event'
+import { AbstractCommand } from '../../../framework/command'
+import { saveEvent } from '../../../framework/event'
 import { AccountDetachedEvent } from '../event/accountDettachedEvent'
 
 interface Payload {

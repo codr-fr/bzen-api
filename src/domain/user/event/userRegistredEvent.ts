@@ -1,4 +1,4 @@
-import { IEvent } from '../../../interface/event'
+import { IEvent } from '../../../framework/event'
 
 export const USER_REGISTRED_EVENT = 'USER_REGISTRED_EVENT'
 

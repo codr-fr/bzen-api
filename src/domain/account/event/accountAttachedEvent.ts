@@ -1,4 +1,4 @@
-import { IEvent } from '../../../interface/event'
+import { IEvent } from '../../../framework/event'
 import { Role } from '../enums'
 
 export const ACCOUNT_ATTACHED_EVENT = 'ACCOUNT_ATTACHED_EVENT'

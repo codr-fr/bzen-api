@@ -40,12 +40,17 @@ export abstract class AbstractAggregator implements IAggregator {
 
 export class Aggregator<T extends AbstractAggregator> extends AbstractAggregator {
   aggregators: T[] = []
+  private events: string[] = []
 
-  constructor(private generic: new (id: string) => T, private events: string[]) {
+  constructor(private generic: new (id: string) => T) {
     super(`Aggregator:${generic.name}`)
   }
 
   supportedEvents(): string[] {
+    if (this.events.length === 0) {
+      this.events = new this.generic('').supportedEvents()
+    }
+
     return this.events
   }
 

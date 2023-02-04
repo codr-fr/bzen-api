@@ -1,14 +1,7 @@
 import db from '../../../database/mongoose'
-import { Aggregator } from '../../../interface/aggregator'
-import { Event } from '../../../model/event'
+import { Event } from '../../../framework/event'
+import { findAll } from '../../../framework/repository'
 import { AccountAggregator } from '../aggregator/accountAggregator'
-import accountEvents from '../event'
-
-export const findAllAccounts = async (): Promise<AccountAggregator[]> => {
-  await db()
-  const events = await Event.find().exec()
-  return new Aggregator(AccountAggregator, accountEvents).applyEvents(events).aggregators
-}
 
 export const findAccount = async (accountId: string): Promise<AccountAggregator> => {
   await db()
@@ -17,6 +10,6 @@ export const findAccount = async (accountId: string): Promise<AccountAggregator>
 }
 
 export const findAccountByUser = async (userId: string): Promise<AccountAggregator[]> => {
-  const accounts = await findAllAccounts()
+  const accounts = await findAll(AccountAggregator)
   return accounts.filter((account) => userId in account.permissions)
 }
