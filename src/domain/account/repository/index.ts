@@ -1,12 +1,13 @@
 import db from '../../../database/mongoose'
+import { Aggregator } from '../../../interface/aggregator'
 import { Event } from '../../../model/event'
 import { AccountAggregator } from '../aggregator/accountAggregator'
-import { AccountsAggregator } from '../aggregator/accountsAggregator'
+import accountEvents from '../event'
 
 export const findAllAccounts = async (): Promise<AccountAggregator[]> => {
   await db()
   const events = await Event.find().exec()
-  return new AccountsAggregator().applyEvents(events).aggregators
+  return new Aggregator(AccountAggregator, accountEvents).applyEvents(events).aggregators
 }
 
 export const findAccount = async (accountId: string): Promise<AccountAggregator> => {
