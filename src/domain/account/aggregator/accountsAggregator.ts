@@ -1,9 +1,18 @@
 import { AbstractAggregator } from '../../../interface/aggregator'
 import { IEvent } from '../../../interface/event'
 import { AccountAggregator } from './accountAggregator'
+import accountEvents from '../event'
 
 export class AccountsAggregator extends AbstractAggregator {
   aggregators: AccountAggregator[] = []
+
+  constructor() {
+    super('')
+  }
+
+  supportedEvents(): string[] {
+    return accountEvents
+  }
 
   applyEvent(event: IEvent): this {
     let aggregator = this.aggregators.find((aggregator) => aggregator.id === event.uuid)

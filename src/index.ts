@@ -20,6 +20,7 @@ import { registerUser, updateUser, loginUser } from './domain/user/controller'
 import { errorHandler } from './middleware/error'
 import { successHandler } from './middleware/success'
 import logger from './logger'
+import { resetSnapshots } from './domain/snapshots/controller'
 
 // App routes
 app.get('/api/accounts/', getUserAccounts)
@@ -35,6 +36,8 @@ app.post('/api/account/detach', detachAccountToUser)
 app.post('/api/user/register', registerUser)
 app.post('/api/user/login', loginUser)
 app.post('/api/user/edit', updateUser)
+
+app.post('/api/snapshots', resetSnapshots)
 
 // Define after all routes
 app.use(successHandler)

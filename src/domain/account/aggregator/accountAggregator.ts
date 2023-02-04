@@ -6,18 +6,21 @@ import { ACCOUNT_CREATED_EVENT, AccountCreatedEvent } from '../event/accountCrea
 import { ACCOUNT_CREDITED_EVENT, AccountCreditedEvent } from '../event/accountCreditedEvent'
 import { ACCOUNT_DEBITED_EVENT, AccountDebitedEvent } from '../event/accountDebitedEvent'
 import { ACCOUNT_DETACHED_EVENT, AccountDetachedEvent } from '../event/accountDettachedEvent'
+import accountEvents from '../event'
 
 export class AccountAggregator extends AbstractAggregator {
-  readonly id: string
   currentBalance: number
   estimatedBalance: number
   permissions: { [key: string]: Role } = {}
 
   constructor(id: string, currentBalance?: number, estimatedBalance?: number) {
-    super()
-    this.id = id
+    super(id)
     this.currentBalance = currentBalance ?? 0
     this.estimatedBalance = estimatedBalance ?? 0
+  }
+
+  supportedEvents(): string[] {
+    return accountEvents
   }
 
   applyEvent(event: IEvent): this {
@@ -41,6 +44,9 @@ export class AccountAggregator extends AbstractAggregator {
       case ACCOUNT_DETACHED_EVENT:
         this.applyDetachAccountEvent(<AccountDetachedEvent>event)
         break
+
+      default:
+        throw new Error(`${event.name} not supported by ${this.constructor.name}`)
     }
     return this
   }

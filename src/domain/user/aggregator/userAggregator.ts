@@ -2,15 +2,14 @@ import { AbstractAggregator } from '../../../interface/aggregator'
 import { IEvent } from '../../../interface/event'
 import { UserRegistredEvent, USER_REGISTRED_EVENT } from '../event/userRegistredEvent'
 import { UserUpdatedEvent, USER_UPDATED_EVENT } from '../event/userUpdatedEvent'
+import userEvents from '../event'
 
 export class UserAggregator extends AbstractAggregator {
-  readonly id: string
   username = ''
   password = ''
 
-  constructor(id: string) {
-    super()
-    this.id = id
+  supportedEvents(): string[] {
+    return userEvents
   }
 
   applyEvent(event: IEvent): this {
@@ -21,6 +20,8 @@ export class UserAggregator extends AbstractAggregator {
       case USER_UPDATED_EVENT:
         this.applyUpdateUserEvent(<UserUpdatedEvent>event)
         break
+      default:
+        throw new Error(`${event.name} not supported by ${this.constructor.name}`)
     }
     return this
   }
