@@ -6,7 +6,6 @@ import { ACCOUNT_CREATED_EVENT, AccountCreatedEvent } from '../event/accountCrea
 import { ACCOUNT_CREDITED_EVENT, AccountCreditedEvent } from '../event/accountCreditedEvent'
 import { ACCOUNT_DEBITED_EVENT, AccountDebitedEvent } from '../event/accountDebitedEvent'
 import { ACCOUNT_DETACHED_EVENT, AccountDetachedEvent } from '../event/accountDettachedEvent'
-import accountEvents from '../event'
 
 export class AccountAggregator extends AbstractAggregator {
   currentBalance: number
@@ -20,7 +19,13 @@ export class AccountAggregator extends AbstractAggregator {
   }
 
   supportedEvents(): string[] {
-    return accountEvents
+    return [
+      ACCOUNT_ATTACHED_EVENT,
+      ACCOUNT_CREATED_EVENT,
+      ACCOUNT_CREDITED_EVENT,
+      ACCOUNT_DEBITED_EVENT,
+      ACCOUNT_DETACHED_EVENT
+    ]
   }
 
   applyEvent(event: IEvent): this {
