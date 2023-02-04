@@ -1,6 +1,7 @@
 import { v4 } from 'uuid'
 import { AccountAggregator } from '../../../domain/account/aggregator/accountAggregator'
-import { AccountAttachedEvent, Role } from '../../../domain/account/event/accountAttachedEvent'
+import { Role } from '../../../domain/account/enums'
+import { AccountAttachedEvent } from '../../../domain/account/event/accountAttachedEvent'
 import { AccountCreatedEvent } from '../../../domain/account/event/accountCreatedEvent'
 import { AccountCreditedEvent } from '../../../domain/account/event/accountCreditedEvent'
 import { AccountDebitedEvent } from '../../../domain/account/event/accountDebitedEvent'

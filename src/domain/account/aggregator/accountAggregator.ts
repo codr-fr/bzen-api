@@ -1,6 +1,7 @@
 import { AbstractAggregator } from '../../../interface/aggregator'
 import { IEvent } from '../../../interface/event'
-import { ACCOUNT_ATTACHED_EVENT, AccountAttachedEvent, Role } from '../event/accountAttachedEvent'
+import { Role } from '../enums'
+import { ACCOUNT_ATTACHED_EVENT, AccountAttachedEvent } from '../event/accountAttachedEvent'
 import { ACCOUNT_CREATED_EVENT, AccountCreatedEvent } from '../event/accountCreatedEvent'
 import { ACCOUNT_CREDITED_EVENT, AccountCreditedEvent } from '../event/accountCreditedEvent'
 import { ACCOUNT_DEBITED_EVENT, AccountDebitedEvent } from '../event/accountDebitedEvent'

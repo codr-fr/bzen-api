@@ -1,12 +1,7 @@
 import { IEvent } from '../../../interface/event'
+import { Role } from '../enums'
 
 export const ACCOUNT_ATTACHED_EVENT = 'ACCOUNT_ATTACHED_EVENT'
-
-export enum Role {
-  Owner = 'OWNER',
-  Reader = 'READER',
-  Editor = 'EDITOR'
-}
 
 interface Payload {
   userId: string

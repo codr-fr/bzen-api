@@ -2,7 +2,8 @@ import Joi from 'joi'
 import { v4 } from 'uuid'
 import { AbstractCommand } from '../../../interface/command'
 import { saveEvents } from '../../../model/event'
-import { AccountAttachedEvent, Role } from '../event/accountAttachedEvent'
+import { Role } from '../enums'
+import { AccountAttachedEvent } from '../event/accountAttachedEvent'
 import { AccountCreatedEvent } from '../event/accountCreatedEvent'
 
 interface Payload {
