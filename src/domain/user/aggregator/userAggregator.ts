@@ -11,7 +11,7 @@ export class UserAggregator extends AbstractAggregator {
     return [USER_REGISTRED_EVENT, USER_UPDATED_EVENT]
   }
 
-  applyEvent(event: IEvent): this {
+  applyEvent(event: IEvent): void {
     super.applyEvent(event)
 
     switch (event.name) {
@@ -22,8 +22,6 @@ export class UserAggregator extends AbstractAggregator {
         this.applyUpdateUserEvent(<UserUpdatedEvent>event)
         break
     }
-
-    return this
   }
 
   private applyRegisterUserEvent(event: UserRegistredEvent) {

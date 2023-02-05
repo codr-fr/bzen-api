@@ -11,6 +11,24 @@ interface Payload {
   initialBalance: number
 }
 
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     CreateAccountCommand:
+ *       type: object
+ *       required:
+ *         - userId
+ *         - initialBalance
+ *       properties:
+ *         userId:
+ *           type: string
+ *         initialBalance:
+ *           type: number
+ *       example:
+ *         userId: x
+ *         initialBalance: 100
+ */
 export class CreateAccountCommand extends AbstractCommand {
   userId: string
   initialBalance: number

@@ -4,8 +4,8 @@ export interface IAggregator {
   readonly id: string
   toObject(filter?: object): object
   supportedEvents(): string[]
-  applyEvent(event: IEvent): this
-  applyEvents(events: IEvent[]): this
+  applyEvent(event: IEvent): void
+  applyEvents(events: IEvent[]): void
 }
 
 export abstract class AbstractAggregator implements IAggregator {
@@ -17,17 +17,14 @@ export abstract class AbstractAggregator implements IAggregator {
     this.id = id
   }
 
-  applyEvent(event: IEvent): this {
+  applyEvent(event: IEvent): void {
     if (!this.supportedEvents().includes(event.name)) {
       throw new Error(`${event.name} not supported by ${this.constructor.name}`)
     }
-
-    return this
   }
 
-  applyEvents(events: IEvent[]): this {
+  applyEvents(events: IEvent[]): void {
     events.filter((event) => this.supportedEvents().includes(event.name)).forEach((event) => this.applyEvent(event))
-    return this
   }
 
   toObject(filters?: string[]): object {

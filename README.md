@@ -36,6 +36,8 @@ To run this project, you will need to add the following environment variables to
 |-----------------|-------------|
 | `NODE_ENV` | production or development, determine ts compilation and some log behaviors |
 | `API_PORT` | port use by the API |
+| `API_PATH` | base path for the api |
+| `API_DOC_PATH` | base path for the swagger ui |
 
 ### JWT configuration
 
@@ -129,6 +131,8 @@ Start the server
 ```bash
   npm run dev
 ```
+
+Swagger UI should be accessible at [http://localhost:3000/api-docs]
 
 
 ## License

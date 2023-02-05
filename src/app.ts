@@ -7,6 +7,8 @@ import fs from 'fs'
 import compression from 'compression'
 import helmet from 'helmet'
 import rateLimiterRedisMiddleware from './middleware/rateLimiterRedis'
+import swaggerJsdoc from 'swagger-jsdoc'
+import swaggerUi from 'swagger-ui-express'
 
 const app = express()
 
@@ -44,6 +46,10 @@ app.use(
   })
 )
 
+const port = process.env.API_PORT || '3000'
+const path = process.env.API_PATH || '/api'
+const swagger = process.env.API_DOC_PATH || '/api-docs'
+
 app.use(json()) // for application/json
 app.use(urlencoded({ extended: true })) //for application/xwww-
 app.use(cors)
@@ -51,7 +57,64 @@ app.use(
   expressjwt({
     secret: String(process.env.JWT_SECRET),
     algorithms: [<jwt.Algorithm>process.env.JWT_ALGORITHM || 'HS256']
-  }).unless({ path: ['/api/user/register', '/api/user/login'] })
+  }).unless({ path: [`${path}/user/register`, `${path}/user/login`, new RegExp(`${swagger}*`)] })
 )
+
+const options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'B-Zen API',
+      version: '1.0.0'
+    },
+    servers: [
+      {
+        url: `{protocol}://{host}:{port}{basePath}`,
+        description: 'API Server',
+        variables: {
+          protocol: {
+            enum: ['http', 'https'],
+            default: 'http'
+          },
+          host: {
+            default: 'localhost'
+          },
+          port: {
+            default: port
+          },
+          basePath: {
+            default: path
+          }
+        }
+      }
+    ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          //           # arbitrary name for the security scheme
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT' //   # optional, arbitrary value for documentation purposes
+        }
+      }
+    }
+  },
+  apis: ['./src/framework/router.ts', './src/domain/*/command/*.ts', './src/domain/*/router/*.ts']
+}
+
+const specs = swaggerJsdoc(options)
+
+app.use(
+  swagger,
+  swaggerUi.serve,
+  swaggerUi.setup(specs, {
+    //explorer: true,
+    customCssUrl: 'https://cdn.jsdelivr.net/npm/swagger-ui-themes@3.0.0/themes/3.x/theme-newspaper.css'
+  })
+)
+
+app.use(`${swagger}.json`, (req, res) => {
+  res.status(200).send(specs)
+})
 
 export default app

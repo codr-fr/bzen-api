@@ -11,6 +11,24 @@ interface Payload {
   password: string
 }
 
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     RegisterUserCommand:
+ *       type: object
+ *       required:
+ *         - username
+ *         - password
+ *       properties:
+ *         username:
+ *           type: string
+ *         password:
+ *           type: string
+ *       example:
+ *         username: x
+ *         password: x
+ */
 export class RegisterUserCommand extends AbstractCommand {
   username: string
   password: string

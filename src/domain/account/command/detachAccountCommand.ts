@@ -8,6 +8,24 @@ interface Payload {
   userId: string
 }
 
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     DetachAccountCommand:
+ *       type: object
+ *       required:
+ *         - accountId
+ *         - userId
+ *       properties:
+ *         accountId:
+ *           type: string
+ *         userId:
+ *           type: string
+ *       example:
+ *         accountId: x
+ *         userId: x
+ */
 export class DetachAccountCommand extends AbstractCommand {
   accountId: string
   userId: string

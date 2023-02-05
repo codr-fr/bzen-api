@@ -6,38 +6,14 @@ dotenvExpand.expand(env)
 
 import http from 'http'
 import app from './app'
-import {
-  getAccount,
-  createAccount,
-  creditAccount,
-  debitAccount,
-  transferBetweenAccounts,
-  attachAccountToUser,
-  getUserAccounts,
-  detachAccountToUser
-} from './domain/account/controller'
-import { registerUser, updateUser, loginUser } from './domain/user/controller'
 import { errorHandler } from './middleware/error'
 import { successHandler } from './middleware/success'
 import logger from './framework/logger'
-import { resetSnapshots } from './domain/snapshots/controller'
+import router from './framework/router'
 
 // App routes
-app.get('/api/accounts/', getUserAccounts)
-
-app.get('/api/account/:accountId', getAccount)
-app.post('/api/account', createAccount)
-app.post('/api/account/credit', creditAccount)
-app.post('/api/account/debit', debitAccount)
-app.post('/api/account/transfer', transferBetweenAccounts)
-app.post('/api/account/attach', attachAccountToUser)
-app.post('/api/account/detach', detachAccountToUser)
-
-app.post('/api/user/register', registerUser)
-app.post('/api/user/login', loginUser)
-app.post('/api/user/edit', updateUser)
-
-app.post('/api/snapshots', resetSnapshots)
+const path = process.env.API_PATH || 'api'
+app.use(`${path}`, router)
 
 // Define after all routes
 app.use(successHandler)
