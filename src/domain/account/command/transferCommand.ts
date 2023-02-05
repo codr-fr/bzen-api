@@ -10,6 +10,28 @@ interface Payload {
   amount: number
 }
 
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     TransferCommand:
+ *       type: object
+ *       required:
+ *         - fromAccountId
+ *         - toAccountId
+ *         - amount
+ *       properties:
+ *         fromAccountId:
+ *           type: string
+ *         toAccountId:
+ *           type: string
+ *         amount:
+ *           type: number
+ *       example:
+ *         fromAccountId: x
+ *         toAccountId: x
+ *         amount: 100
+ */
 export class TransferCommand extends AbstractCommand {
   fromAccountId: string
   toAccountId: string

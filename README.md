@@ -36,6 +36,8 @@ To run this project, you will need to add the following environment variables to
 |-----------------|-------------|
 | `NODE_ENV` | production or development, determine ts compilation and some log behaviors |
 | `API_PORT` | port use by the API |
+| `API_PATH` | base path for the api |
+| `API_DOC_PATH` | base path for the swagger ui |
 
 ### JWT configuration
 

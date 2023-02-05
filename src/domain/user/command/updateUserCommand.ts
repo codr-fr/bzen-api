@@ -9,6 +9,24 @@ interface Payload {
   username: string
 }
 
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     UpdateUserCommand:
+ *       type: object
+ *       required:
+ *         - username
+ *        # - userId
+ *       properties:
+ *         username:
+ *           type: string
+ *        # userId:
+ *        #   type: string
+ *       example:
+ *         username: x
+ *        # userId: x
+ */
 export class UpdateUserCommand extends AbstractCommand {
   userId: string
   username: string

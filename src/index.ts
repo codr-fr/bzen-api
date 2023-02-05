@@ -12,7 +12,8 @@ import logger from './framework/logger'
 import router from './framework/router'
 
 // App routes
-app.use('/api', router)
+const path = process.env.API_PATH || 'api'
+app.use(`${path}`, router)
 
 // Define after all routes
 app.use(successHandler)

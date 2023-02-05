@@ -8,6 +8,24 @@ interface Payload {
   amount: number
 }
 
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     CreditAccountCommand:
+ *       type: object
+ *       required:
+ *         - accountId
+ *         - amount
+ *       properties:
+ *         accountId:
+ *           type: string
+ *         amount:
+ *           type: number
+ *       example:
+ *         accountId: x
+ *         amount: 100
+ */
 export class CreditAccountCommand extends AbstractCommand {
   accountId: string
   amount: number
