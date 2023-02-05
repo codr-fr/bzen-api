@@ -17,6 +17,8 @@ export default express.Router().use('/snapshot', router)
  *   post:
  *     summary: Create a snapshot of all aggregators
  *     tags: [Snapshot]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         $ref: '#/components/responses/Success'

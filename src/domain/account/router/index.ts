@@ -27,6 +27,8 @@ export default express.Router().use('/account', router)
  * /account/{accountId}:
  *   get:
  *     tags: [Account]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         $ref: '#/components/responses/Success'
@@ -42,6 +44,8 @@ router.get('/:accountId', getAccount)
  * /account:
  *   post:
  *     tags: [Account]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         $ref: '#/components/responses/Success'
@@ -57,6 +61,8 @@ router.post('/', createAccount)
  * /account/credit:
  *   post:
  *     tags: [Account]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         $ref: '#/components/responses/Success'
@@ -72,6 +78,8 @@ router.post('/credit', creditAccount)
  * /account/debit:
  *   post:
  *     tags: [Account]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         $ref: '#/components/responses/Success'
@@ -87,6 +95,8 @@ router.post('/debit', debitAccount)
  * /account/transfer:
  *   post:
  *     tags: [Account]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         $ref: '#/components/responses/Success'
@@ -102,6 +112,8 @@ router.post('/transfer', transferBetweenAccounts)
  * /account/attach:
  *   post:
  *     tags: [Account]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         $ref: '#/components/responses/Success'
@@ -117,6 +129,8 @@ router.post('/attach', attachAccountToUser)
  * /account/detach:
  *   post:
  *     tags: [Account]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         $ref: '#/components/responses/Success'

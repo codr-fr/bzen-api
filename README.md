@@ -132,6 +132,8 @@ Start the server
   npm run dev
 ```
 
+Swagger UI should be accessible at [http://localhost:3000/api-docs]
+
 
 ## License
 

@@ -46,6 +46,10 @@ app.use(
   })
 )
 
+const port = process.env.API_PORT || '3000'
+const path = process.env.API_PATH || '/api'
+const swagger = process.env.API_DOC_PATH || '/api-docs'
+
 app.use(json()) // for application/json
 app.use(urlencoded({ extended: true })) //for application/xwww-
 app.use(cors)
@@ -53,11 +57,8 @@ app.use(
   expressjwt({
     secret: String(process.env.JWT_SECRET),
     algorithms: [<jwt.Algorithm>process.env.JWT_ALGORITHM || 'HS256']
-  }).unless({ path: ['/api/user/register', '/api/user/login', /\/api-docs\/*/] })
+  }).unless({ path: [`${path}/user/register`, `${path}/user/login`, new RegExp(`${swagger}*`)] })
 )
-
-const path = process.env.API_PATH || 'api'
-const port = process.env.API_PORT || '3000'
 
 const options = {
   definition: {
@@ -104,12 +105,16 @@ const options = {
 const specs = swaggerJsdoc(options)
 
 app.use(
-  '/api-docs',
+  swagger,
   swaggerUi.serve,
   swaggerUi.setup(specs, {
     //explorer: true,
     customCssUrl: 'https://cdn.jsdelivr.net/npm/swagger-ui-themes@3.0.0/themes/3.x/theme-newspaper.css'
   })
 )
+
+app.use(`${swagger}.json`, (req, res) => {
+  res.status(200).send(specs)
+})
 
 export default app
