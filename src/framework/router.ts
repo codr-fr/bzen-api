@@ -13,8 +13,24 @@ const router = express.Router()
  *      description: Command correctly executed
  *    Error:
  *      description: An error occured
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              message:
+ *                type: string
+ *                description: Error detail
  *    UnauthorizedError:
  *      description: Access token is missing or invalid
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              message:
+ *                type: string
+ *                description: Error detail
  */
 
 router.use('/', accountRouter)

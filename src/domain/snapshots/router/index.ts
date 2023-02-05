@@ -11,4 +11,18 @@ const router = express.Router()
  */
 export default express.Router().use('/snapshot', router)
 
+/**
+ * @swagger
+ * /snapshot:
+ *   post:
+ *     summary: Create a snapshot of all aggregators
+ *     tags: [Snapshot]
+ *     responses:
+ *       200:
+ *         $ref: '#/components/responses/Success'
+ *       400:
+ *         $ref: '#/components/responses/Error'
+ *       401:
+ *         $ref: '#/components/responses/UnauthorizedError'
+ */
 router.post('/', resetSnapshots)

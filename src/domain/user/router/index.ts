@@ -26,10 +26,10 @@ export default express.Router().use('/user', router)
  *     responses:
  *       200:
  *         $ref: '#/components/responses/Success'
+ *       400:
+ *         $ref: '#/components/responses/Error'
  *       401:
  *         $ref: '#/components/responses/UnauthorizedError'
- *       500:
- *         $ref: '#/components/responses/Error'
  */
 router.post('/', registerUser)
 
@@ -37,7 +37,7 @@ router.post('/', registerUser)
  * @swagger
  * /user/login:
  *   post:
- *     summary: Require a jwt token
+ *     summary: Try to login to get a fresh JWT Token
  *     tags: [User]
  *     requestBody:
  *       required: true
@@ -46,8 +46,17 @@ router.post('/', registerUser)
  *           schema:
  *             $ref: '#/components/schemas/LoginUserCommand'
  *     responses:
- *       200: {}
- *       500: {}
+ *       200:
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
+ *                   description: JWT Token
+ *       400:
+ *         $ref: '#/components/responses/Error'
  */
 router.post('/login', loginUser)
 
@@ -68,9 +77,9 @@ router.post('/login', loginUser)
  *     responses:
  *       200:
  *         $ref: '#/components/responses/Success'
+ *       400:
+ *         $ref: '#/components/responses/Error'
  *       401:
  *         $ref: '#/components/responses/UnauthorizedError'
- *       500:
- *         $ref: '#/components/responses/Error'
  */
 router.post('/edit', updateUser)
